@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image } from 'react-native';
 
@@ -25,7 +26,7 @@ const LoginScreen = () => {
         onChangeText={setPassword}
       />
       <Button style={styles.button} title="Entrar"></Button>
-      <Button style={styles.button} title="Criar usuário"/>
+      <Link href='users' style={styles.button}>Criar usuário</Link>
     </View>
   );
 };
