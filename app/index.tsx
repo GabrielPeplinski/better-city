@@ -1,6 +1,6 @@
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { View, TextInput, StyleSheet, Image, Pressable, Text } from 'react-native';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -33,8 +33,18 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button style={styles.button} title="Entrar" onPress={login}></Button>
-      <Link href='users' style={styles.button}>Criar usuário</Link>
+
+      <View>
+        <Pressable style={styles.button} onPress={login}>
+          <Text style={styles.text}>Entrar</Text>
+        </Pressable>
+      </View>
+      <View>
+        <Text style={styles.text}>Faça parte da diferença!</Text>
+        <Pressable style={styles.button} onPress={login}>
+          <Text style={styles.text}>Cadastrar</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -56,13 +66,24 @@ const styles = StyleSheet.create({
     backgroundColor:'white'
   },
   button: {
-    width: '80%',
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 1,
+    width: '100%',
     marginVertical: 10,
+    color: 'white',
+    borderWidth: 1,
+    borderColor: 'white',
+    height: 40,
   },
   logo: {
     width: 380,
     height: 200
-  }
+  },
+  text: {
+    color: 'white'
+  },
+
 });
 
 export default LoginScreen;
