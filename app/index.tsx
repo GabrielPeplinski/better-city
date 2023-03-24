@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image } from 'react-native';
 
@@ -6,6 +6,14 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const router = useRouter();
+
+  const login = () => {
+    router.push({
+      pathname: "/main"
+    });
+  };
+  
   return (
     <View style={styles.container}>
       <View>
@@ -25,7 +33,7 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button style={styles.button} title="Entrar"></Button>
+      <Button style={styles.button} title="Entrar" onPress={login}></Button>
       <Link href='users' style={styles.button}>Criar usuário</Link>
     </View>
   );

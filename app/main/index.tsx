@@ -5,7 +5,7 @@ export default class index extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Create User Page</Text>
+        <Text style={styles.text}>MAIN PAGE</Text>
       </View>
     )
   }
