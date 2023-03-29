@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Image, Pressable, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -10,29 +11,37 @@ const LoginScreen = () => {
 
   const login = () => {
     router.push({
-      pathname: "/main"
+      pathname: '/main',
     });
   };
-  
+
   return (
     <View style={styles.container}>
       <View>
-          <Image source={require('../assets/images/better-city-logo.png')}
-          style={styles.logo}></Image>
+        <Image
+          source={require('../assets/images/better-city-logo.png')}
+          style={styles.logo}
+        ></Image>
       </View>
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={setPassword}
-      />
+      <View style={styles.inputBox}>
+        <Ionicons name="mail-sharp" size={24} color="white" />
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+      <View style={styles.inputBox}>
+        <Ionicons name="key" size={24} color="white" />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={setPassword}
+        />
+      </View>
 
       <View>
         <Pressable style={styles.button} onPress={login}>
@@ -54,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#082942'
+    backgroundColor: '#082942',
   },
   input: {
     width: '80%',
@@ -63,11 +72,11 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
   button: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 1,
     width: '100%',
     marginVertical: 10,
@@ -78,12 +87,16 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 380,
-    height: 200
+    height: 200,
   },
   text: {
-    color: 'white'
+    color: 'white',
   },
-
+  inputBox: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default LoginScreen;
