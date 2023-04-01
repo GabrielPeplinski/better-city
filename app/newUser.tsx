@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
-import DateTimePicker from '../src/components/CreateUser/DatePicker/DatePicker';
+import DateTimePicker from '../src/components/DatePicker/DatePicker';
 
 export default function newUserScreen() {
 
