@@ -15,12 +15,18 @@ const LoginScreen = () => {
     });
   };
 
+  const createUser = () => {
+    router.push({
+      pathname: '/newUser',
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View>
         <Image
           source={require('../assets/images/better-city-logo.png')}
-          style={styles.logo}
+          style={styles.logoImage}
         ></Image>
       </View>
       <View style={styles.inputBox}>
@@ -50,7 +56,7 @@ const LoginScreen = () => {
       </View>
       <View>
         <Text style={styles.text}>Faça parte da diferença!</Text>
-        <Pressable style={styles.button} onPress={login}>
+        <Pressable style={styles.button} onPress={createUser}>
           <Text style={styles.text}>Cadastrar</Text>
         </Pressable>
       </View>
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#082942',
+    backgroundColor: 'red',
   },
   input: {
     width: '80%',
@@ -75,6 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   button: {
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 1,
@@ -85,8 +92,12 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     height: 40,
   },
+  logoImage: {
+    width: 350,
+    height: 200,
+  },
   logo: {
-    width: 380,
+    width: 350,
     height: 200,
   },
   text: {
