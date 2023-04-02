@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Button, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default function newUserScreen() {
+const DatePicker = () => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
   const onChange = (event, selectDate) => {
     const currentDate = selectDate || date;
+
     setShow(Platform.OS === 'android');
     setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let formatedDate = tempDate.getDate() + '/' + tempDate.getMonth() + '/' + tempDate.getFullYear();
+
+    console.log(formatedDate);
   };
 
   const showMode = () => {
@@ -38,3 +44,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue'
     },
   });
+
+  export default DatePicker

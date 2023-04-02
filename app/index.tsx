@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Image, Pressable, Text } from 'react-native';
+import { View, TextInput, StyleSheet, Image, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Button from '../src/components/Button/Button';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -48,17 +49,12 @@ const LoginScreen = () => {
           onChangeText={setPassword}
         />
       </View>
-
       <View>
-        <Pressable style={styles.button} onPress={login}>
-          <Text style={styles.text}>Entrar</Text>
-        </Pressable>
+        <Button labelButton="Entrar" onPress={login} />
       </View>
       <View>
         <Text style={styles.text}>Faça parte da diferença!</Text>
-        <Pressable style={styles.button} onPress={createUser}>
-          <Text style={styles.text}>Cadastrar</Text>
-        </Pressable>
+        <Button labelButton="Cadastrar" onPress={createUser} />
       </View>
     </View>
   );
@@ -69,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#082942',
   },
   input: {
     width: '80%',
@@ -79,18 +75,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     paddingHorizontal: 10,
     backgroundColor: 'white',
-  },
-  button: {
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 1,
-    width: '100%',
-    marginVertical: 10,
-    color: 'white',
-    borderWidth: 1,
-    borderColor: 'white',
-    height: 40,
   },
   logoImage: {
     width: 350,
