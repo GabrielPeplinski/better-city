@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Button, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default function newUserScreen() {
+const DatePicker = () => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
@@ -44,3 +44,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue'
     },
   });
+
+  export default DatePicker

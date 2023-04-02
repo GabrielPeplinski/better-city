@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
 import DateTimePicker from '../src/components/DatePicker/DatePicker';
 import Button from '../src/components/Button/Button';
 import Input from '../src/components/Input/Input';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function newUserScreen() {
   const [birhtdate, setBirthdate] = useState(new Date());
@@ -22,6 +23,7 @@ export default function newUserScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
+      <FontAwesome name="user-circle-o" size={70} color="white" />
         <View style={styles.form}>
           <Input label="Nome" placeholder="Seu nome" value={name} onChange={setName} />
 
