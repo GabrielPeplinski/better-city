@@ -8,8 +8,14 @@ export default function newUserScreen() {
 
   const onChange = (event, selectDate) => {
     const currentDate = selectDate || date;
+
     setShow(Platform.OS === 'android');
     setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let formatedDate = tempDate.getDate() + '/' + tempDate.getMonth() + '/' + tempDate.getFullYear();
+
+    console.log(formatedDate);
   };
 
   const showMode = () => {
