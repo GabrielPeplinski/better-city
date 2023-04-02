@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
 import DateTimePicker from '../src/components/DatePicker/DatePicker';
+import Button from '../src/components/Button/Button';
+import Input from '../src/components/Input/Input';
 
 export default function newUserScreen() {
-
-	const [birhtdate, setBirthdate] = useState(new Date());
-  const [nome, setNome] = useState('');
-  const [bairro, setBairro] = useState('');
+  const [birhtdate, setBirthdate] = useState(new Date());
+  const [name, setName] = useState('');
+  const [district, setDistrict] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   function handleCadastro() {
     console.log(
-      `Nome: ${nome}, Data de Nascimento: ${birhtdate}, Bairro: ${bairro}, CPF: ${cpf}, Email: ${email}, Senha: ${senha}`
+      `Nome: ${name}, Data de Nascimento: ${birhtdate}, Bairro: ${district}, CPF: ${cpf}, Email: ${email}, Senha: ${password}`
     );
   }
 
@@ -21,51 +23,36 @@ export default function newUserScreen() {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.form}>
-          <Text style={styles.label}>Nome:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu nome"
-            value={nome}
-            onChangeText={setNome}
-          />
+          <Input label="Nome" placeholder="Seu nome" value={name} onChange={setName} />
 
           <Text style={styles.label}>Data de Nascimento:</Text>
-					<DateTimePicker />
+          <DateTimePicker />
 
-          <Text style={styles.label}>Bairro:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu bairro"
-            value={bairro}
-            onChangeText={setBairro}
-          />
+          <Input label="Bairro" placeholder="Vila Carli" value={district} onChange={setDistrict} />
 
-          <Text style={styles.label}>CPF:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu CPF"
-            value={cpf}
-            onChangeText={setCpf}
-          />
+          <Input label="CPF" placeholder="Seu CPF" value={cpf} onChange={setCpf} />
 
-          <Text style={styles.label}>Email:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu email"
-            value={email}
-            onChangeText={setEmail}
-          />
+          <Input label="Email" placeholder="Seu email" value={email} onChange={setEmail} />
 
           <Text style={styles.label}>Senha:</Text>
           <TextInput
             style={styles.input}
             placeholder="Digite sua senha"
-            value={senha}
-            onChangeText={setSenha}
+            value={password}
+            onChangeText={setPassword}
             secureTextEntry={true}
           />
 
-          <Button title="Cadastrar" onPress={handleCadastro} />
+          <Text style={styles.label}>Senha:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Confirme sua senha"
+            value={passwordConfirm}
+            onChangeText={setPasswordConfirm}
+            secureTextEntry={true}
+          />
+
+          <Button labelButton="Cadastrar" onPress={handleCadastro} />
         </View>
       </View>
     </ScrollView>
@@ -77,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#082942',
   },
   form: {
     width: '80%',
@@ -86,11 +73,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
     fontWeight: 'bold',
+    color: 'white'
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     padding: 8,
     marginBottom: 10,
+    backgroundColor: 'white'
   },
 });
