@@ -13,13 +13,16 @@ const DatePicker = () => {
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
-    let formatedDate = tempDate.getDate() + '/' + tempDate.getMonth() + '/' + tempDate.getFullYear();
+    let formatedDate = tempDate.getDate() + '/' + (tempDate.getMonth()) +1 + '/' + tempDate.getFullYear();
 
     console.log(formatedDate);
   };
 
   const showMode = () => {
-    setShow(true)
+      if (show == true)
+        setShow(false)
+      else
+        setShow(true)
   }
 
   return (
