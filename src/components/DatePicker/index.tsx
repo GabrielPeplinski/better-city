@@ -13,21 +13,21 @@ const DatePicker = () => {
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
-    let formatedDate = tempDate.getDate() + '/' + (tempDate.getMonth()) +1 + '/' + tempDate.getFullYear();
+    let formatedDate =
+      tempDate.getDate() + '/' + tempDate.getMonth() + 1 + '/' + tempDate.getFullYear();
 
+    setShow(false);
     console.log(formatedDate);
   };
 
   const showMode = () => {
-      if (show == true)
-        setShow(false)
-      else
-        setShow(true)
-  }
+    if (show == true) setShow(false);
+    else setShow(true);
+  };
 
   return (
     <View>
-      <Button title="Selecione uma data" onPress={() => showMode()}/>
+      <Button title="Selecione uma data" onPress={() => showMode()} />
 
       {show && (
         <DateTimePicker
@@ -40,12 +40,12 @@ const DatePicker = () => {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-    datePickerButton: {
-        backgroundColor: 'blue'
-    },
-  });
+  datePickerButton: {
+    backgroundColor: 'blue',
+  },
+});
 
-  export default DatePicker
+export default DatePicker;

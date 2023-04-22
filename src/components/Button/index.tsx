@@ -1,5 +1,6 @@
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import React from 'react';
+import theme from '@themes/theme';
 
 const Button = ({ labelButton, onPress }) => {
   return (
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   text: {
-    color: 'white',
+    color: theme.button.textColor,
   },
 });
 
