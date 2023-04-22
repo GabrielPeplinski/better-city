@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import DateTimePicker from '@components/DatePicker';
 import Button from '@components/Button';
 import Input from '@components/Input';
 import { FontAwesome } from '@expo/vector-icons';
 import theme from '@themes/theme';
+import PasswordInput from '@components/PasswordInput';
 
-export default function newUserScreen() {
+const newUserScreen = () => {
   const [birhtdate, setBirthdate] = useState(new Date());
   const [name, setName] = useState('');
   const [district, setDistrict] = useState('');
@@ -37,22 +38,18 @@ export default function newUserScreen() {
 
           <Input label="Email" placeholder="Seu email" value={email} onChange={setEmail} />
 
-          <Text style={styles.label}>Senha:</Text>
-          <TextInput
-            style={styles.input}
+          <PasswordInput
+            label="Senha"
             placeholder="Digite sua senha"
             value={password}
-            onChangeText={setPassword}
-            secureTextEntry={true}
+            onChange={setPassword}
           />
 
-          <Text style={styles.label}>Senha:</Text>
-          <TextInput
-            style={styles.input}
+          <PasswordInput
+            label="Confirmação da senha"
             placeholder="Confirme sua senha"
             value={passwordConfirm}
-            onChangeText={setPasswordConfirm}
-            secureTextEntry={true}
+            onChange={setPasswordConfirm}
           />
 
           <Button labelButton="Cadastrar" onPress={handleCadastro} />
@@ -60,7 +57,7 @@ export default function newUserScreen() {
       </View>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -78,12 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 8,
-    marginBottom: 10,
-    backgroundColor: 'white',
-    borderRadius: 20,
-  },
 });
+
+export default newUserScreen;

@@ -5,6 +5,9 @@ const theme = {
   },
   fonts: {
     primaryColor: 'white'
+  },
+  button: {
+    textColor: 'white'
   }
 };
 
