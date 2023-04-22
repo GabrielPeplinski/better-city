@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
+import theme from '../../theme';
 
 export default class index extends Component {
   render() {
@@ -16,13 +17,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#082942'
+    backgroundColor: theme.colors.primary
   },
   button: {
     width: '80%',
     marginVertical: 10,
   },
   text: {
-    color: 'white'
+    color: theme.fonts.primaryColor
   }
 });

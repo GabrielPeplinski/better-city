@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Input from '../../../src/components/Input/Input';
-import TextContent from '../../../src/components/TextContent/TextContent';
+import Input from '@components/Input';
+import TextContent from '@components/TextContent';
+import theme from 'theme';
 
 export default function newTroubleScreen() {
   const [title, setTitle] = useState('');
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#082942',
+    backgroundColor: theme.colors.primary,
   },
   form: {
     width: '80%',

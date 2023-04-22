@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
-import DateTimePicker from '../src/components/DatePicker/DatePicker';
-import Button from '../src/components/Button/Button';
-import Input from '../src/components/Input/Input';
+import DateTimePicker from '@components/DatePicker';
+import Button from '@components/Button';
+import Input from '@components/Input';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function newUserScreen() {
@@ -23,7 +23,7 @@ export default function newUserScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
-      <FontAwesome name="user-circle-o" size={70} color="white" />
+        <FontAwesome name="user-circle-o" size={70} color="white" />
         <View style={styles.form}>
           <Input label="Nome" placeholder="Seu nome" value={name} onChange={setName} />
 
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
   },
   input: {
     borderWidth: 1,
