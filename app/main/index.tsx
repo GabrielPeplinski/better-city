@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import theme from '../../theme';
+import theme from '@themes/theme';
 
 export default class index extends Component {
   render() {

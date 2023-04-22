@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Input from '@components/Input';
 import TextContent from '@components/TextContent';
-import theme from 'theme';
+import theme from '@themes/theme';
 
 export default function newTroubleScreen() {
   const [title, setTitle] = useState('');

@@ -4,6 +4,7 @@ import DateTimePicker from '@components/DatePicker';
 import Button from '@components/Button';
 import Input from '@components/Input';
 import { FontAwesome } from '@expo/vector-icons';
+import theme from '@themes/theme';
 
 export default function newUserScreen() {
   const [birhtdate, setBirthdate] = useState(new Date());
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#082942',
+    backgroundColor: theme.colors.primary,
   },
   form: {
     width: '80%',

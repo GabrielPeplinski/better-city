@@ -23,7 +23,8 @@ module.exports = function (api) {
           "@components": "./src/components",
           "@contexts": "./src/contexts",
           "@services": "./src/services",
-          "@configs": "./src/configs"
+          "@configs": "./src/configs",
+          "@themes": "./src/themes"
         }
       }]
     ]
