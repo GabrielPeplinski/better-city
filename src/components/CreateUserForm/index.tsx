@@ -6,6 +6,8 @@ import Input from '@components/Input';
 import { FontAwesome } from '@expo/vector-icons';
 import theme from '@themes/theme';
 import PasswordInput from '@components/PasswordInput';
+import { Formik } from 'formik';
+import RegisterValidation from '@validations/RegisterValidation';
 
 const CreateUserForm = () => {
   const [birhtdate, setBirthdate] = useState(new Date());
@@ -14,7 +16,7 @@ const CreateUserForm = () => {
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   function handleCadastro() {
     console.log(
@@ -27,32 +29,52 @@ const CreateUserForm = () => {
       <View style={styles.container}>
         <FontAwesome name="user-circle-o" size={70} color="white" />
         <View style={styles.form}>
-          <Input label="Nome" placeholder="Seu nome" value={name} onChange={setName} />
+          <Formik
+            initialValues={{ name: '', email: '', district: '', password: '', confirmPassword: '' }}
+            validationSchema={RegisterValidation}
+            onSubmit={(values) => console.log(values)}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+              <View>
+                <Input label="Nome" placeholder="Seu nome" value={name} onChange={setName} />
+                {errors.name && touched.name && <Text>{errors.name}</Text>}
 
-          <Text style={styles.label}>Data de Nascimento:</Text>
-          <DateTimePicker />
+                <Input label="Email" placeholder="Seu email" value={email} onChange={setEmail} />
+                {errors.email && touched.email && <Text>{errors.email}</Text>}
 
-          <Input label="Bairro" placeholder="Vila Carli" value={district} onChange={setDistrict} />
+                <Text style={styles.label}>Data de Nascimento:</Text>
+                <DateTimePicker />
 
-          <Input label="CPF" placeholder="Seu CPF" value={cpf} onChange={setCpf} />
+                <Input
+                  label="Bairro"
+                  placeholder="Vila Carli"
+                  value={district}
+                  onChange={setDistrict}
+                />
+                {errors.district && touched.district && <Text>{errors.district}</Text>}
 
-          <Input label="Email" placeholder="Seu email" value={email} onChange={setEmail} />
+                <PasswordInput
+                  label="Senha"
+                  placeholder="Digite sua senha"
+                  value={password}
+                  onChange={setPassword}
+                />
+                {errors.password && touched.password && <Text>{errors.password}</Text>}
 
-          <PasswordInput
-            label="Senha"
-            placeholder="Digite sua senha"
-            value={password}
-            onChange={setPassword}
-          />
+                <PasswordInput
+                  label="Confirmação da senha"
+                  placeholder="Confirme sua senha"
+                  value={confirmPassword}
+                  onChange={setConfirmPassword}
+                />
+                {errors.confirmPassword && touched.confirmPassword && (
+                  <Text>{errors.confirmPassword}</Text>
+                )}
 
-          <PasswordInput
-            label="Confirmação da senha"
-            placeholder="Confirme sua senha"
-            value={passwordConfirm}
-            onChange={setPasswordConfirm}
-          />
-
-          <Button labelButton="Cadastrar" onPress={handleCadastro} />
+                <Button labelButton="Cadastrar" onPress={handleSubmit} />
+              </View>
+            )}
+          </Formik>
         </View>
       </View>
     </ScrollView>
@@ -73,7 +95,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
     fontWeight: 'bold',
-    color: 'white',
+    color: theme.fonts.primaryColor,
   },
 });
 

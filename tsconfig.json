@@ -4,7 +4,8 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@configs/*": ["./src/config/*"],
-      "@themes/*": ["./src/themes/*"]
+      "@themes/*": ["./src/themes/*"],
+      "@validations/*": ["./src/validations/*"]
     },
   },
   "extends": "expo/tsconfig.base",
