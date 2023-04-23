@@ -26,7 +26,7 @@ const LoginScreen = () => {
     <View style={styles.container}>
       <View>
         <Image
-          source={require('../assets/images/better-city-logo.png')}
+          source={require('@images/better-city-logo.png')}
           style={styles.logoImage}
         />
       </View>
