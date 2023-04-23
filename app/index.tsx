@@ -18,7 +18,7 @@ const LoginScreen = () => {
 
   const createUser = () => {
     router.push({
-      pathname: '/newUser',
+      pathname: '/register',
     });
   };
 
@@ -28,7 +28,7 @@ const LoginScreen = () => {
         <Image
           source={require('../assets/images/better-city-logo.png')}
           style={styles.logoImage}
-        ></Image>
+        />
       </View>
       <View style={styles.inputBox}>
         <Ionicons name="mail-sharp" size={24} color="white" />

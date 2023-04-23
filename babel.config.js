@@ -25,7 +25,8 @@ module.exports = function (api) {
           "@services": "./src/services",
           "@configs": "./src/configs",
           "@themes": "./src/themes",
-          "@validations": "./src/validations"
+          "@validations": "./src/validations",
+          "@images": "./assets/images"
         }
       }]
     ]
