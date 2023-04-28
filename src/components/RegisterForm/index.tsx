@@ -16,7 +16,13 @@ const CreateUserForm = () => {
         <FontAwesome name="user-circle-o" size={70} color="white" />
         <View style={styles.form}>
           <Formik
-            initialValues={{ name: '', email: '', district: '', password: '', confirmPassword: '' }}
+            initialValues={{
+              name: '',
+              email: '',
+              district: '',
+              password: '',
+              confirmPassword: '',
+            }}
             validationSchema={RegisterValidation}
             onSubmit={(values) => console.log(values)}
           >
@@ -28,7 +34,11 @@ const CreateUserForm = () => {
                   value={values.name}
                   onChange={handleChange('name')}
                 />
-                {errors.name && <Text style={{ fontSize: 10, color: 'red' }}>{errors.name}</Text>}
+                {errors.name && (
+                  <Text style={{ fontSize: 10, color: 'red' }}>
+                    {errors.name}
+                  </Text>
+                )}
 
                 <Input
                   label="Email"
@@ -36,7 +46,11 @@ const CreateUserForm = () => {
                   value={values.email}
                   onChange={handleChange('email')}
                 />
-                {errors.email && <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>}
+                {errors.email && (
+                  <Text style={{ fontSize: 10, color: 'red' }}>
+                    {errors.email}
+                  </Text>
+                )}
 
                 <Text style={styles.label}>Data de Nascimento:</Text>
                 <DateTimePicker />
@@ -48,7 +62,9 @@ const CreateUserForm = () => {
                   onChange={handleChange('district')}
                 />
                 {errors.district && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>{errors.district}</Text>
+                  <Text style={{ fontSize: 10, color: 'red' }}>
+                    {errors.district}
+                  </Text>
                 )}
 
                 <PasswordInput
@@ -58,7 +74,9 @@ const CreateUserForm = () => {
                   onChange={handleChange('password')}
                 />
                 {errors.password && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>{errors.password}</Text>
+                  <Text style={{ fontSize: 10, color: 'red' }}>
+                    {errors.password}
+                  </Text>
                 )}
 
                 <PasswordInput
@@ -68,7 +86,9 @@ const CreateUserForm = () => {
                   onChange={handleChange('confirmPassword')}
                 />
                 {errors.confirmPassword && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>{errors.confirmPassword}</Text>
+                  <Text style={{ fontSize: 10, color: 'red' }}>
+                    {errors.confirmPassword}
+                  </Text>
                 )}
 
                 <Button labelButton="Cadastrar" onPress={handleSubmit} />
