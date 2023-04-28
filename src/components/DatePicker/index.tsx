@@ -31,7 +31,7 @@ const DatePicker = () => {
   return (
     <View>
       <Pressable style={styles.button} onPress={() => showMode()}>
-        <Text style={styles.text}>Selecione uma data"</Text>
+        <Text style={styles.text}>Selecione uma data</Text>
       </Pressable>
 
       {show && (

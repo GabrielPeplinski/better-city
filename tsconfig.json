@@ -6,7 +6,9 @@
       "@configs/*": ["./src/config/*"],
       "@themes/*": ["./src/themes/*"],
       "@validations/*": ["./src/validations/*"],
-      "@images/*": ["./assets/images/*"]
+      "@images/*": ["./assets/images/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@types/*": ["./src/types/*"],
     },
   },
   "extends": "expo/tsconfig.base",

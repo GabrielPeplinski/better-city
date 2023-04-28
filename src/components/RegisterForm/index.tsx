@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import DateTimePicker from '@components/DatePicker';
 import Button from '@components/Button';
@@ -10,20 +10,6 @@ import { Formik } from 'formik';
 import RegisterValidation from '@validations/RegisterValidation';
 
 const CreateUserForm = () => {
-  const [birhtdate, setBirthdate] = useState(new Date());
-  const [name, setName] = useState('');
-  const [district, setDistrict] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  function handleCadastro() {
-    console.log(
-      `Nome: ${name}, Data de Nascimento: ${birhtdate}, Bairro: ${district}, CPF: ${cpf}, Email: ${email}, Senha: ${password}`
-    );
-  }
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -34,13 +20,23 @@ const CreateUserForm = () => {
             validationSchema={RegisterValidation}
             onSubmit={(values) => console.log(values)}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+            {({ handleChange, handleSubmit, values, errors }) => (
               <View>
-                <Input label="Nome" placeholder="Seu nome" value={name} onChange={setName} />
-                {errors.name && touched.name && <Text>{errors.name}</Text>}
+                <Input
+                  label="Nome"
+                  placeholder="Seu nome"
+                  value={values.name}
+                  onChange={handleChange('name')}
+                />
+                {errors.name && <Text style={{ fontSize: 10, color: 'red' }}>{errors.name}</Text>}
 
-                <Input label="Email" placeholder="Seu email" value={email} onChange={setEmail} />
-                {errors.email && touched.email && <Text>{errors.email}</Text>}
+                <Input
+                  label="Email"
+                  placeholder="Seu email"
+                  value={values.email}
+                  onChange={handleChange('email')}
+                />
+                {errors.email && <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>}
 
                 <Text style={styles.label}>Data de Nascimento:</Text>
                 <DateTimePicker />
@@ -48,27 +44,31 @@ const CreateUserForm = () => {
                 <Input
                   label="Bairro"
                   placeholder="Vila Carli"
-                  value={district}
-                  onChange={setDistrict}
+                  value={values.district}
+                  onChange={handleChange('district')}
                 />
-                {errors.district && touched.district && <Text>{errors.district}</Text>}
+                {errors.district && (
+                  <Text style={{ fontSize: 10, color: 'red' }}>{errors.district}</Text>
+                )}
 
                 <PasswordInput
                   label="Senha"
                   placeholder="Digite sua senha"
-                  value={password}
-                  onChange={setPassword}
+                  value={values.password}
+                  onChange={handleChange('password')}
                 />
-                {errors.password && touched.password && <Text>{errors.password}</Text>}
+                {errors.password && (
+                  <Text style={{ fontSize: 10, color: 'red' }}>{errors.password}</Text>
+                )}
 
                 <PasswordInput
                   label="Confirmação da senha"
                   placeholder="Confirme sua senha"
-                  value={confirmPassword}
-                  onChange={setConfirmPassword}
+                  value={values.confirmPassword}
+                  onChange={handleChange('confirmPassword')}
                 />
-                {errors.confirmPassword && touched.confirmPassword && (
-                  <Text>{errors.confirmPassword}</Text>
+                {errors.confirmPassword && (
+                  <Text style={{ fontSize: 10, color: 'red' }}>{errors.confirmPassword}</Text>
                 )}
 
                 <Button labelButton="Cadastrar" onPress={handleSubmit} />
