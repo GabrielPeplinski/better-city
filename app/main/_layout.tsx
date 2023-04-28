@@ -16,12 +16,12 @@ export default function _layout() {
       icon: 'add-circle',
     },
     index: {
-      label: 'Home',
-      icon: '',
+      label: 'Mapa',
+      icon: 'map',
     },
     'client/index': {
-      label: 'Clientes',
-      icon: 'people-circle',
+      label: 'Listagem',
+      icon: 'list',
     },
   };
 

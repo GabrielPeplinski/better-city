@@ -24,7 +24,11 @@ module.exports = function (api) {
           "@contexts": "./src/contexts",
           "@services": "./src/services",
           "@configs": "./src/configs",
-          "@themes": "./src/themes"
+          "@themes": "./src/themes",
+          "@validations": "./src/validations",
+          "@images": "./assets/images",
+          "@hooks": "./src/hooks",
+          "@types": "./src/types",
         }
       }]
     ]

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
-import CreateUserForm from '@components/CreateUserForm';
+import RegisterForm from '@components/RegisterForm';
 
 const newUserScreen = () => {
   return (
     <View>
-      <CreateUserForm />
+      <RegisterForm />
     </View>
   );
 };
