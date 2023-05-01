@@ -9,6 +9,10 @@ const theme = {
   },
   button: {
     textColor: 'white'
+  },
+  formErrors: {
+    fontSize: 10,
+    color: 'red'
   }
 };
 
