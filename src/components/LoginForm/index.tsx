@@ -9,7 +9,6 @@ import LoginValidation from '@validations/LoginValidation';
 import { useRouter } from 'expo-router';
 
 const LoginForm = () => {
-
   const router = useRouter();
 
   const login = () => {
