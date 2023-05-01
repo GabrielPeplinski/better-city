@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
   },
   input: {
     borderRadius: 20,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     padding: 8,
     marginBottom: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 });
 

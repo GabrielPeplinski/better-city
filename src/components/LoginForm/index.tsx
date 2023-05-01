@@ -1,14 +1,14 @@
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import Button from '@components/Button';
+import { Text, View, StyleSheet, Image } from 'react-native';
+import React from 'react';
 import theme from '@themes/theme';
+import Button from '@components/Button';
 import Input from '@components/Input';
+import PasswordInput from '@components/PasswordInput';
+import { Formik } from 'formik';
+import LoginValidation from '@validations/LoginValidation';
+import { useRouter } from 'expo-router';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const router = useRouter();
 
@@ -26,27 +26,48 @@ const LoginForm = () => {
 
   return (
     <View style={styles.container}>
+      
+      <Image
+        source={require('@images/better-city-logo.png')}
+        style={styles.logoImage}
+      />
 
-        <Image
-          source={require('@images/better-city-logo.png')}
-          style={styles.logoImage}
-        />
-     
-      <View style={styles.inputBox}>
-        <Ionicons name="mail-sharp" size={24} color="white" />
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        validationSchema={LoginValidation}
+        onSubmit={(values) => console.log(values)}
+      >
+        {({ handleChange, handleSubmit, values, errors }) => (
+          <View>
 
-        <Input label="E-mail" placeholder="Seu email" value={email} onChange={setEmail} />
-       
-      </View>
-      <View style={styles.inputBox}>
-        <Ionicons name="key" size={24} color="white" />
+            <Input
+              label="Email"
+              placeholder="Seu email"
+              value={values.email}
+              onChange={handleChange('email')}
+            />
+            {errors.email && (
+              <Text style={theme.formErrors}>{errors.email}</Text>
+            )}
 
-        <Input label="Senha" placeholder="Sua senha" value={password} onChange={setPassword} />
-    
-      </View>
-      <View>
-        <Button labelButton="Entrar" onPress={login} />
-      </View>
+            <PasswordInput
+              label="Senha"
+              placeholder="Digite sua senha"
+              value={values.password}
+              onChange={handleChange('password')}
+            />
+            {errors.password && (
+              <Text style={theme.formErrors}>{errors.password}</Text>
+            )}
+
+            <Button labelButton="Login" onPress={login} />
+          </View>
+        )}
+      </Formik>
+
       <View>
         <Text style={styles.text}>Faça parte da diferença!</Text>
         <Button labelButton="Cadastrar" onPress={createUser} />
@@ -62,23 +83,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
   },
-  logoImage: {
-    width: 350,
-    height: 200,
+  form: {
+    width: '80%',
   },
-  logo: {
+  logoImage: {
     width: 350,
     height: 200,
   },
   text: {
     color: 'white',
-  },
-  inputBox: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'pink'
   },
 });
 
