@@ -2,6 +2,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import React, {useEffect} from 'react';
 import theme from '@themes/theme';
 import LocationService from '@services/ExpoLocationService';
+import MyMap from '@components/MyMap';
 
 const index = () => {
 
@@ -23,7 +24,7 @@ const index = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>MAIN PAGE</Text>
+      <MyMap/>
     </View>
   );
 };
