@@ -35,7 +35,7 @@ const CreateUserForm = () => {
                   onChange={handleChange('name')}
                 />
                 {errors.name && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>
+                  <Text style={theme.formErrors}>
                     {errors.name}
                   </Text>
                 )}
@@ -47,7 +47,7 @@ const CreateUserForm = () => {
                   onChange={handleChange('email')}
                 />
                 {errors.email && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>
+                  <Text style={theme.formErrors}>
                     {errors.email}
                   </Text>
                 )}
@@ -62,7 +62,7 @@ const CreateUserForm = () => {
                   onChange={handleChange('district')}
                 />
                 {errors.district && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>
+                  <Text style={theme.formErrors}>
                     {errors.district}
                   </Text>
                 )}
@@ -74,7 +74,7 @@ const CreateUserForm = () => {
                   onChange={handleChange('password')}
                 />
                 {errors.password && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>
+                  <Text style={theme.formErrors}>
                     {errors.password}
                   </Text>
                 )}
@@ -86,7 +86,7 @@ const CreateUserForm = () => {
                   onChange={handleChange('confirmPassword')}
                 />
                 {errors.confirmPassword && (
-                  <Text style={{ fontSize: 10, color: 'red' }}>
+                  <Text style={theme.formErrors}>
                     {errors.confirmPassword}
                   </Text>
                 )}
