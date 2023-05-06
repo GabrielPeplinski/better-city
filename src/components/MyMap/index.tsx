@@ -2,6 +2,7 @@ import { View, ActivityIndicator } from "react-native";
 import React from "react";
 import { ExpoLeaflet, MapLayer, MapMarker } from "expo-leaflet";
 
+// Guarapuava Location : lat: -25.37128550031277, long: -51.485741918986605
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {
   baseLayerName: "OpenStreetMap",
@@ -14,7 +15,6 @@ const mapLayer: MapLayer = {
 };
 
 const MyMap = () => {
-  // You can define custom markers
   const markers: MapMarker[] = [
     {
       id: "1",
@@ -29,7 +29,7 @@ const MyMap = () => {
       <ExpoLeaflet
         mapLayers={[mapLayer]}
         mapMarkers={markers}
-        mapCenterPosition={{ lat: 37.4220936, lng: -122.083922 }}
+        mapCenterPosition={{ lat: -25.37128550031277, lng: -51.485741918986605 }}
         maxZoom={20}
         zoom={15}
         loadingIndicator={() => <ActivityIndicator />}
