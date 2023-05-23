@@ -2,11 +2,16 @@ import { Pressable, Text, View, StyleSheet } from 'react-native';
 import React from 'react';
 import theme from '@themes/theme';
 
-const Button = ({ labelButton, onPress }) => {
+interface Props {
+  labelButton: string;
+  onPress: () => void;
+}
+
+const Button = (props: Props) => {
   return (
     <View>
-      <Pressable style={styles.button} onPress={onPress}>
-        <Text style={styles.text}>{labelButton}</Text>
+      <Pressable style={styles.button} onPress={props.onPress}>
+        <Text style={styles.text}>{props.labelButton}</Text>
       </Pressable>
     </View>
   );
