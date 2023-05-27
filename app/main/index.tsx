@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React, {useEffect} from 'react';
 import theme from '@themes/theme';
 import LocationService from '@services/ExpoLocationService';
