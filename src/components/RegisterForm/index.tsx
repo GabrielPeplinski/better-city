@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Alert } from 'react-native';
 import DateTimePicker from '@components/DatePicker';
 import Button from '@components/Button';
 import Input from '@components/Input';
@@ -8,8 +8,27 @@ import theme from '@themes/theme';
 import PasswordInput from '@components/PasswordInput';
 import { Formik } from 'formik';
 import RegisterValidation from '@validations/RegisterValidation';
+import useAuth from '@hooks/useAuth';
 
 const CreateUserForm = () => {
+
+  const { register } = useAuth();
+
+  const createUser = async (values) => {
+    try {
+      await register(values['email'], values['password']);
+    } catch (error: any) {
+      Alert.alert('Alert Title', 'My Alert Msg', [
+        {
+          text: 'An error has ocorred',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'An error has ocorred', onPress: () => console.log('Error Register')},
+      ])
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -24,7 +43,8 @@ const CreateUserForm = () => {
               confirmPassword: '',
             }}
             validationSchema={RegisterValidation}
-            onSubmit={(values) => console.log(values)}
+            //onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => createUser(values)}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
               <View>
