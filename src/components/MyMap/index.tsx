@@ -35,7 +35,7 @@ const MyMap = () => {
         loadingIndicator={() => <ActivityIndicator />}
         onMessage={(message) => {
           // You can capture map interacions here
-          console.log(message);
+          //console.log(message);
         }}
       />
     </View>

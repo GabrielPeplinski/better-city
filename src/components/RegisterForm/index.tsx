@@ -14,18 +14,17 @@ const CreateUserForm = () => {
 
   const { register } = useAuth();
 
-  const createUser = async (values) => {
+  interface RegisterProps {
+    email: string;
+    password: string;
+  }
+
+  const createUser = async (values: RegisterProps) => {
     try {
-      await register(values['email'], values['password']);
+      await register(values.email, values.password);
     } catch (error: any) {
-      Alert.alert('Alert Title', 'My Alert Msg', [
-        {
-          text: 'An error has ocorred',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'An error has ocorred', onPress: () => console.log('Error Register')},
-      ])
+      Alert.alert('An error had ocurred!')
+      console.log(error)
     }
   };
 

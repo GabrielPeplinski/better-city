@@ -1,19 +1,17 @@
 import { View, StyleSheet } from 'react-native';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import theme from '@themes/theme';
-import LocationService from '@services/ExpoLocationService';
 import MyMap from '@components/MyMap';
+import * as Location from 'expo-location';
 
 const index = () => {
-
   useEffect(() => {
     const getLocation = async () => {
       try {
-        const locationService = new LocationService();
-        const location = await locationService.getCurrentLocation();
-        console.log('Latitude:', location.latitude);
-        console.log('Longitude:', location.longitude);
-        
+        const location = await Location.getCurrentPositionAsync({});
+
+        console.log('Latitude:', location.coords.latitude);
+        console.log('Longitude:', location.coords.longitude);
       } catch (error) {
         console.error('Erro ao obter a localização:', error);
       }
@@ -24,7 +22,7 @@ const index = () => {
 
   return (
     <View style={styles.container}>
-      <MyMap/>
+      <MyMap />
     </View>
   );
 };
