@@ -2,6 +2,10 @@ import { View, ActivityIndicator } from "react-native";
 import React from "react";
 import { ExpoLeaflet, MapLayer, MapMarker } from "expo-leaflet";
 
+interface MapProps {
+  markers: string[];
+}
+
 // Guarapuava Location : lat: -25.37128550031277, long: -51.485741918986605
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {
