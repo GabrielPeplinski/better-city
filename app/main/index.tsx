@@ -4,14 +4,20 @@ import theme from '@themes/theme';
 import MyMap from '@components/MyMap';
 import * as Location from 'expo-location';
 
-const index = () => {
+const MainScreen = () => {
   useEffect(() => {
     const getLocation = async () => {
       try {
-        const location = await Location.getCurrentPositionAsync({});
+        let { status } = await Location.requestForegroundPermissionsAsync();
 
-        console.log('Latitude:', location.coords.latitude);
-        console.log('Longitude:', location.coords.longitude);
+        if (status !== 'granted') {
+          throw new Error('Permissão de localização não concedida');
+        }
+
+        //const location = await Location.getCurrentPositionAsync({});
+
+        //console.log('Latitude:', location.coords.latitude);
+        //console.log('Longitude:', location.coords.longitude);
       } catch (error) {
         console.error('Erro ao obter a localização:', error);
       }
@@ -43,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default index;
+export default MainScreen;

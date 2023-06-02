@@ -1,6 +1,7 @@
 import { View, ActivityIndicator } from "react-native";
 import React from "react";
 import { ExpoLeaflet, MapLayer, MapMarker } from "expo-leaflet";
+import { useLocationCoordenates } from "@contexts/LocationCoordenatesContextProvider";
 
 interface MapProps {
   markers: string[];
@@ -19,6 +20,10 @@ const mapLayer: MapLayer = {
 };
 
 const MyMap = () => {
+  const {latitude, longitude} = useLocationCoordenates();
+
+  console.log('CONTEXT:', latitude, longitude);
+
   const markers: MapMarker[] = [
     {
       id: "1",
@@ -33,7 +38,7 @@ const MyMap = () => {
       <ExpoLeaflet
         mapLayers={[mapLayer]}
         mapMarkers={markers}
-        mapCenterPosition={{ lat: -25.37128550031277, lng: -51.485741918986605 }}
+        mapCenterPosition={{ lat: {latitude}, lng: {longitude} }}
         maxZoom={20}
         zoom={15}
         loadingIndicator={() => <ActivityIndicator />}

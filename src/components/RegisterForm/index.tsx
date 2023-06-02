@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, Alert } from 'react-native';
-import DateTimePicker from '@components/DatePicker';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import Button from '@components/Button';
 import Input from '@components/Input';
 import { FontAwesome } from '@expo/vector-icons';
@@ -11,7 +10,6 @@ import RegisterValidation from '@validations/RegisterValidation';
 import useAuth from '@hooks/useAuth';
 
 const CreateUserForm = () => {
-
   const { register } = useAuth();
 
   interface RegisterProps {
@@ -23,100 +21,63 @@ const CreateUserForm = () => {
     try {
       await register(values.email, values.password);
     } catch (error: any) {
-      Alert.alert('An error had ocurred!')
-      console.log(error)
+      Alert.alert('An error had ocurred!');
+      console.log(error);
     }
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <FontAwesome name="user-circle-o" size={70} color="white" />
-        <View style={styles.form}>
-          <Formik
-            initialValues={{
-              name: '',
-              email: '',
-              district: '',
-              password: '',
-              confirmPassword: '',
-            }}
-            validationSchema={RegisterValidation}
-            //onSubmit={(values) => console.log(values)}
-            onSubmit={(values) => createUser(values)}
-          >
-            {({ handleChange, handleSubmit, values, errors }) => (
-              <View>
-                <Input
-                  label="Nome"
-                  placeholder="Seu nome"
-                  value={values.name}
-                  onChange={handleChange('name')}
-                />
-                {errors.name && (
-                  <Text style={theme.formErrors}>
-                    {errors.name}
-                  </Text>
-                )}
+    <View style={styles.container}>
+      <FontAwesome name="user-circle-o" size={70} color="white" />
+      <View style={styles.form}>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+            confirmPassword: '',
+          }}
+          validationSchema={RegisterValidation}
+          //onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => createUser(values)}
+        >
+          {({ handleChange, handleSubmit, values, errors }) => (
+            <View>
+              <Input
+                label="Email"
+                placeholder="Seu email"
+                value={values.email}
+                onChange={handleChange('email')}
+              />
+              {errors.email && (
+                <Text style={theme.formErrors}>{errors.email}</Text>
+              )}
 
-                <Input
-                  label="Email"
-                  placeholder="Seu email"
-                  value={values.email}
-                  onChange={handleChange('email')}
-                />
-                {errors.email && (
-                  <Text style={theme.formErrors}>
-                    {errors.email}
-                  </Text>
-                )}
+              <PasswordInput
+                label="Senha"
+                placeholder="Digite sua senha"
+                value={values.password}
+                onChange={handleChange('password')}
+              />
+              {errors.password && (
+                <Text style={theme.formErrors}>{errors.password}</Text>
+              )}
 
-                <Text style={styles.label}>Data de Nascimento:</Text>
-                <DateTimePicker />
+              <PasswordInput
+                label="Confirmação da senha"
+                placeholder="Confirme sua senha"
+                value={values.confirmPassword}
+                onChange={handleChange('confirmPassword')}
+              />
+              {errors.confirmPassword && (
+                <Text style={theme.formErrors}>{errors.confirmPassword}</Text>
+              )}
 
-                <Input
-                  label="Bairro"
-                  placeholder="Vila Carli"
-                  value={values.district}
-                  onChange={handleChange('district')}
-                />
-                {errors.district && (
-                  <Text style={theme.formErrors}>
-                    {errors.district}
-                  </Text>
-                )}
-
-                <PasswordInput
-                  label="Senha"
-                  placeholder="Digite sua senha"
-                  value={values.password}
-                  onChange={handleChange('password')}
-                />
-                {errors.password && (
-                  <Text style={theme.formErrors}>
-                    {errors.password}
-                  </Text>
-                )}
-
-                <PasswordInput
-                  label="Confirmação da senha"
-                  placeholder="Confirme sua senha"
-                  value={values.confirmPassword}
-                  onChange={handleChange('confirmPassword')}
-                />
-                {errors.confirmPassword && (
-                  <Text style={theme.formErrors}>
-                    {errors.confirmPassword}
-                  </Text>
-                )}
-
-                <Button labelButton="Cadastrar" onPress={handleSubmit} />
-              </View>
-            )}
-          </Formik>
-        </View>
+              <Button labelButton="Cadastrar" onPress={handleSubmit} />
+            </View>
+          )}
+        </Formik>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
