@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -44,5 +45,14 @@ export default function useAuth() {
     });
   }, []);
 
-  return { loading, user, login, logout };
+  /**
+   * Wrapper for create users with loading state flag for conditional renders.
+   * @param a valid email.
+   * @param a valid password.
+   */
+  const register = async (email: string, password: string) => {
+    await createUserWithEmailAndPassword(getAuth(), email, password);
+  };
+
+  return { loading, user, login, logout, register };
 }

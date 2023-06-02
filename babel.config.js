@@ -23,12 +23,12 @@ module.exports = function (api) {
           "@components": "./src/components",
           "@contexts": "./src/contexts",
           "@services": "./src/services",
-          "@configs": "./src/configs",
           "@themes": "./src/themes",
           "@validations": "./src/validations",
           "@images": "./assets/images",
           "@hooks": "./src/hooks",
           "@types": "./src/types",
+          "@config": "./src/config",
         }
       }]
     ]

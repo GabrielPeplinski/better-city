@@ -3,13 +3,14 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@configs/*": ["./src/config/*"],
+      "@config/*": ["./src/config/*"],
       "@themes/*": ["./src/themes/*"],
       "@validations/*": ["./src/validations/*"],
       "@images/*": ["./assets/images/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@types/*": ["./src/types/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@contexts/*": ["./src/contexts/*"],
     },
   },
   "extends": "expo/tsconfig.base",

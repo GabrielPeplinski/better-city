@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, Alert } from 'react-native';
 import React from 'react';
 import theme from '@themes/theme';
 import Button from '@components/Button';
@@ -7,14 +7,30 @@ import PasswordInput from '@components/PasswordInput';
 import { Formik } from 'formik';
 import LoginValidation from '@validations/LoginValidation';
 import { useRouter } from 'expo-router';
+import useAuth from '@hooks/useAuth';
 
 const LoginForm = () => {
   const router = useRouter();
+  const { login } = useAuth();
 
-  const login = () => {
-    router.push({
-      pathname: '/main',
-    });
+  interface LoginProps {
+    email: string;
+    password: string;
+  }
+
+  const handleLogin = async (values: LoginProps) => {
+    try {
+      await login(values.email, values.password);
+
+      router.push({
+        pathname: '/main',
+      });
+
+      Alert.alert('Login deu boa');
+    } catch (error: any) {
+      Alert.alert('An error had ocurred!');
+      console.log(error);
+    }
   };
 
   const createUser = () => {
@@ -25,7 +41,6 @@ const LoginForm = () => {
 
   return (
     <View style={styles.container}>
-      
       <Image
         source={require('@images/better-city-logo.png')}
         style={styles.logoImage}
@@ -37,11 +52,10 @@ const LoginForm = () => {
           password: '',
         }}
         validationSchema={LoginValidation}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => handleLogin(values)}
       >
         {({ handleChange, handleSubmit, values, errors }) => (
           <View>
-
             <Input
               label="Email"
               placeholder="Seu email"
@@ -62,7 +76,7 @@ const LoginForm = () => {
               <Text style={theme.formErrors}>{errors.password}</Text>
             )}
 
-            <Button labelButton="Login" onPress={login} />
+            <Button labelButton="Login" onPress={handleSubmit} />
           </View>
         )}
       </Formik>
