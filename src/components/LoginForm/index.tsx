@@ -26,7 +26,7 @@ const LoginForm = () => {
         pathname: '/main',
       });
 
-      Alert.alert('Login deu boa')
+      Alert.alert('Login deu boa');
     } catch (error: any) {
       Alert.alert('An error had ocurred!');
       console.log(error);

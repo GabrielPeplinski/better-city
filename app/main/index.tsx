@@ -13,11 +13,6 @@ const MainScreen = () => {
         if (status !== 'granted') {
           throw new Error('Permissão de localização não concedida');
         }
-
-        //const location = await Location.getCurrentPositionAsync({});
-
-        //console.log('Latitude:', location.coords.latitude);
-        //console.log('Longitude:', location.coords.longitude);
       } catch (error) {
         console.error('Erro ao obter a localização:', error);
       }

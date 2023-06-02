@@ -1,6 +1,6 @@
 import {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useState,
@@ -10,32 +10,27 @@ import * as Location from 'expo-location';
 interface LocationCoordenatesProps {
   latitude: number;
   longitude: number;
+  setLatitude: (latitude: number) => void;
+  setLongitude: (longitude: number) => void;
 }
 
-const LocationCoordenatesContext = createContext<LocationCoordenatesProps>({
-  latitude: 0,
-  longitude: 0,
-});
-
-interface TokenContextProviderProps {
-  latitude: number;
-  longitude: number;
-  children: ReactNode;
-}
+const LocationCoordenatesContext =
+  createContext<LocationCoordenatesProps | null>(null);
 
 export function LocationCoordenatesContextProvider({
-  latitude,
-  longitude,
   children,
-}: TokenContextProviderProps) {
+}: PropsWithChildren) {
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   useEffect(() => {
     const getLocation = async () => {
       try {
+        // initial setup
         const location = await Location.getCurrentPositionAsync({});
 
-        console.log('Latitude:', location.coords.latitude);
-        console.log('Longitude:', location.coords.longitude);
+        setLatitude(location.coords.latitude);
+        setLongitude(location.coords.longitude);
       } catch (error) {
         console.error('Erro ao obter a localização:', error);
       }
@@ -45,19 +40,21 @@ export function LocationCoordenatesContextProvider({
   }, []);
 
   return (
-    <LocationCoordenatesContext.Provider value={{ latitude, longitude }}>
+    <LocationCoordenatesContext.Provider
+      value={{ latitude, longitude, setLatitude, setLongitude }}
+    >
       {children}
     </LocationCoordenatesContext.Provider>
   );
 }
 
-export function useLocationCoordenates() {
-  const { latitude, longitude } = useContext(LocationCoordenatesContext);
+export function useLocationCoordinates() {
+  const context = useContext(LocationCoordenatesContext);
 
-  if (latitude === undefined || longitude === undefined)
+  if (!context)
     throw new Error(
       'useLocationCoordenates must be used inside LocationCoordenatesContext'
     );
 
-  return { latitude, longitude };
+  return context;
 }
