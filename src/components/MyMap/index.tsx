@@ -2,12 +2,10 @@ import { View, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
+import useCollection from '@hooks/useCollection';
+import Troubles from 'src/types/Troubles';
+import GeolocationApiService from '@services/GeolocationApiService';
 
-interface MapProps {
-  markers: string[];
-}
-
-// Guarapuava Location : lat: -25.37128550031277, long: -51.485741918986605
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {
   baseLayerName: 'OpenStreetMap',
@@ -22,15 +20,25 @@ const mapLayer: MapLayer = {
 const MyMap = () => {
   const { latitude, longitude } = useLocationCoordinates();
 
+  const geolocationApiService = new GeolocationApiService();
+  const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná'
+
+  let aqui = geolocationApiService.getCoordinatesByAddress(address);
+  console.log('aqui', aqui);
+
   console.log('CONTEXT:', latitude, longitude);
+  
+  const { data, loading, create, remove, update, all } = useCollection<Troubles>("troubles");
+
+  console.log(data)
 
   const markers: MapMarker[] = [
     {
       id: '1',
-      position: { lat: 37.4220936, lng: -122.083922 },
-      icon: "<div style='color:blue'>⚑</div>", // This icon should be an HTML Element because it's rendered inside a webview!
+      position: { lat: latitude, lng: longitude },
+      icon: "<div style='color:blue'>👤</div>", // This icon should be an HTML Element because it's rendered inside a webview!
       size: [24, 24],
-    },
+    }, 
   ];
 
   return (
@@ -44,7 +52,7 @@ const MyMap = () => {
         loadingIndicator={() => <ActivityIndicator />}
         onMessage={(message) => {
           // You can capture map interacions here
-          //console.log(message);
+          console.log(message);
         }}
       />
     </View>

@@ -27,7 +27,6 @@ module.exports = function (api) {
           "@validations": "./src/validations",
           "@images": "./assets/images",
           "@hooks": "./src/hooks",
-          "@types": "./src/types",
           "@config": "./src/config",
         }
       }]
