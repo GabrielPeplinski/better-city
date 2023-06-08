@@ -1,10 +1,12 @@
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Text, Button } from 'react-native';
 import React from 'react';
 import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 import useCollection from '@hooks/useCollection';
 import Troubles from 'src/types/Troubles';
 import GeolocationApiService from '@services/GeolocationApiService';
+import { useModal } from '@components/ModalProvider';
+import CreateTroubleModal from '@components/CreateTroubleModal';
 
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {
@@ -18,19 +20,21 @@ const mapLayer: MapLayer = {
 };
 
 const MyMap = () => {
+  const modal = useModal();
   const { latitude, longitude } = useLocationCoordinates();
 
   const geolocationApiService = new GeolocationApiService();
-  const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná'
+  const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná';
 
   let aqui = geolocationApiService.getCoordinatesByAddress(address);
   console.log('aqui', aqui);
 
-  console.log('CONTEXT:', latitude, longitude);
-  
-  const { data, loading, create, remove, update, all } = useCollection<Troubles>("troubles");
+  //console.log('CONTEXT:', latitude, longitude);
 
-  console.log(data)
+  const { data, loading, create, remove, update, all } =
+    useCollection<Troubles>('troubles');
+
+  console.log(data);
 
   const markers: MapMarker[] = [
     {
@@ -38,7 +42,7 @@ const MyMap = () => {
       position: { lat: latitude, lng: longitude },
       icon: "<div style='color:blue'>👤</div>", // This icon should be an HTML Element because it's rendered inside a webview!
       size: [24, 24],
-    }, 
+    },
   ];
 
   return (
@@ -50,9 +54,25 @@ const MyMap = () => {
         maxZoom={20}
         zoom={15}
         loadingIndicator={() => <ActivityIndicator />}
-        onMessage={(message) => {
+        onMessage={(message: any) => {
           // You can capture map interacions here
-          console.log(message);
+          console.log('>>>', message);
+          //>>> {"location": {"lat": -25.3544199383424, "lng": -51.476569175720215}, "tag": "onMapClicked"}
+
+          if (message.tag === 'onMapClicked') {
+            const latitude = message.location.lat;
+            const longitude = message.location.lng;
+
+            modal.show(
+
+              <CreateTroubleModal />
+              //<View>
+              //  <Text>{latitude}</Text>
+              //  <Text>{longitude}</Text>
+              //  <Button onPress={() => modal.hide()} title="X" />
+              //</View>
+            );
+          }
         }}
       />
     </View>

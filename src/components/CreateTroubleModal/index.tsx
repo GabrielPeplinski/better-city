@@ -1,91 +1,87 @@
+import React from 'react';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import Input from '@components/Input';
+import theme from '@themes/theme';
 import Button from '@components/Button';
-import CreateTroubleForm from '@components/CreateTroubleForm';
-import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
+import { useModal } from '@components/ModalProvider';
+import Troubles from 'src/types/Troubles';
+import useCollection from '@hooks/useCollection';
+import { Formik } from 'formik';
 
 const CreateTroubleModal = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const modal = useModal();
+  const { create } = useCollection<Troubles>('troubles', false);
+
+  interface TroubleProps {
+    title: string;
+    description: string;
+  }
+
+  const createTrouble = async (values: TroubleProps) => {
+    console.log(values);
+  };
 
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+    <View style={styles.container}>
+      <Ionicons name="add-circle" size={70} color="white" />
+      <View style={styles.form}>
+        <Formik
+          initialValues={{
+            title: '',
+            description: '',
+          }}
+          validationSchema={''}
+          onSubmit={(values) => createTrouble(values)}
+        >
+          {({ handleChange, handleSubmit, values, errors }) => (
+            <View>
+              <Input
+                label="Título"
+                placeholder="Título da sua reclamação"
+                value={values.title}
+                onChange={handleChange('title')}
+              />
+              {errors.title && (
+                <Text style={theme.formErrors}>{errors.title}</Text>
+              )}
 
-            <CreateTroubleForm />
-
-            <Button 
-                labelButton='Cancelar'
-                onPress={() => setModalVisible(!modalVisible)}
-            />
-            <Button 
-                labelButton='Cancelar'
-                onPress={() => setModalVisible(!modalVisible)}
-            />
-
-          </View>
-        </View>
-      </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
+              <Input
+                label="Descrição"
+                placeholder="Descrição da sua reclamação"
+                value={values.description}
+                onChange={handleChange('description')}
+              />
+              {errors.title && (
+                <Text style={theme.formErrors}>{errors.title}</Text>
+              )}
+              <Button labelButton="Cadastrar" onPress={handleSubmit} />
+            </View>
+          )}
+        </Formik>
+      </View>
+      <View>
+        <Pressable style={styles.cancelButton} onPress={modal.hide}>
+          <Text>Cancelar</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
+  container: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
+    backgroundColor: theme.colors.primary,
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  form: {
+    width: '80%',
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
+  cancelButton: {
+    backgroundColor: 'red'
+  }
 });
 
 export default CreateTroubleModal;
