@@ -65,7 +65,10 @@ const MyMap = () => {
 
             modal.show(
 
-              <CreateTroubleModal />
+              <CreateTroubleModal 
+                latitude={latitude}
+                longitude={longitude} 
+              />
               //<View>
               //  <Text>{latitude}</Text>
               //  <Text>{longitude}</Text>

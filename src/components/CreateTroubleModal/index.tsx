@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Pressable, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Input from '@components/Input';
 import theme from '@themes/theme';
@@ -8,10 +8,18 @@ import { useModal } from '@components/ModalProvider';
 import Troubles from 'src/types/Troubles';
 import useCollection from '@hooks/useCollection';
 import { Formik } from 'formik';
+import TroubleValidation from '@validations/TroubleValidation';
+import useAuth from '@hooks/useAuth';
 
-const CreateTroubleModal = () => {
+interface Props {
+  latitude: number;
+  longitude: number;
+}
+
+const CreateTroubleModal = (props: Props) => {
   const modal = useModal();
   const { create } = useCollection<Troubles>('troubles', false);
+  const { user } = useAuth();
 
   interface TroubleProps {
     title: string;
@@ -19,7 +27,23 @@ const CreateTroubleModal = () => {
   }
 
   const createTrouble = async (values: TroubleProps) => {
-    console.log(values);
+    let now = new Date();
+
+    try {
+      await create({
+        latitude: props.latitude,
+        longitude: props.longitude,
+        created_at: now.toISOString(),
+        is_solved: false,
+        user_id: user.uid,
+        ...values,
+      });
+
+      modal.hide();
+    } catch (error: any) {
+      console.log(error);
+      Alert.alert('Não foi possível cadastrar a sua reclamação');
+    }
   };
 
   return (
@@ -31,7 +55,7 @@ const CreateTroubleModal = () => {
             title: '',
             description: '',
           }}
-          validationSchema={''}
+          validationSchema={TroubleValidation}
           onSubmit={(values) => createTrouble(values)}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
@@ -52,8 +76,8 @@ const CreateTroubleModal = () => {
                 value={values.description}
                 onChange={handleChange('description')}
               />
-              {errors.title && (
-                <Text style={theme.formErrors}>{errors.title}</Text>
+              {errors.description && (
+                <Text style={theme.formErrors}>{errors.description}</Text>
               )}
               <Button labelButton="Cadastrar" onPress={handleSubmit} />
             </View>
@@ -80,8 +104,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   cancelButton: {
-    backgroundColor: 'red'
-  }
+    backgroundColor: 'red',
+  },
 });
 
 export default CreateTroubleModal;

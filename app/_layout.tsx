@@ -9,7 +9,8 @@ export default function _layout() {
   // initialize firebase
   const firebaseApp = useFirebase(firebaseConfig);
 
-  if (!firebaseApp) return <SplashScreen />;
+  if (!firebaseApp)
+    return <SplashScreen />;
 
   return (
     <ModalProvider>
