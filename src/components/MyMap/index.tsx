@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, Text, Button } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
@@ -55,25 +55,17 @@ const MyMap = () => {
         zoom={15}
         loadingIndicator={() => <ActivityIndicator />}
         onMessage={(message: any) => {
-          // You can capture map interacions here
           console.log('>>>', message);
-          //>>> {"location": {"lat": -25.3544199383424, "lng": -51.476569175720215}, "tag": "onMapClicked"}
 
           if (message.tag === 'onMapClicked') {
             const latitude = message.location.lat;
             const longitude = message.location.lng;
 
             modal.show(
-
               <CreateTroubleModal 
                 latitude={latitude}
                 longitude={longitude} 
               />
-              //<View>
-              //  <Text>{latitude}</Text>
-              //  <Text>{longitude}</Text>
-              //  <Button onPress={() => modal.hide()} title="X" />
-              //</View>
             );
           }
         }}
