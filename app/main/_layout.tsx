@@ -11,9 +11,9 @@ export default function _layout() {
   };
 
   const Screens: ScreenProps = {
-    'troubles/index': {
-      label: 'Problemas',
-      icon: 'add-circle',
+    'my-troubles/index': {
+      label: 'Minhas Reclamações',
+      icon: 'list',
     },
     index: {
       label: 'Mapa',
