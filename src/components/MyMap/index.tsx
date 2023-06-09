@@ -2,12 +2,12 @@ import { View, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
+import useCollection from '@hooks/useCollection';
+import Troubles from 'src/types/Troubles';
+import GeolocationApiService from '@services/GeolocationApiService';
+import { useModal } from '@components/ModalProvider';
+import CreateTroubleModal from '@components/CreateTroubleModal';
 
-interface MapProps {
-  markers: string[];
-}
-
-// Guarapuava Location : lat: -25.37128550031277, long: -51.485741918986605
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {
   baseLayerName: 'OpenStreetMap',
@@ -20,18 +20,40 @@ const mapLayer: MapLayer = {
 };
 
 const MyMap = () => {
+  const modal = useModal();
   const { latitude, longitude } = useLocationCoordinates();
 
-  console.log('CONTEXT:', latitude, longitude);
+  const geolocationApiService = new GeolocationApiService();
+  const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná';
 
-  const markers: MapMarker[] = [
+  let aqui = geolocationApiService.getCoordinatesByAddress(address);
+  console.log('aqui', aqui);
+
+  const { data, refreshData } =
+    useCollection<Troubles>('troubles');
+
+  console.log(data);
+
+  const troublesList = data.map((item): MapMarker => {
+    return {
+      id: item.id,
+      title: item.title,
+      position: [item.latitude, item.longitude],
+      icon: "<div>❌</div>",
+      size: [24, 24]
+    };
+  });
+
+  const userLocation: MapMarker[] = [
     {
       id: '1',
-      position: { lat: 37.4220936, lng: -122.083922 },
-      icon: "<div style='color:blue'>⚑</div>", // This icon should be an HTML Element because it's rendered inside a webview!
+      position: { lat: latitude, lng: longitude },
+      icon: "<div style='color:blue'>👤</div>",
       size: [24, 24],
     },
   ];
+
+  const markers = userLocation.concat(troublesList);
 
   return (
     <View style={{ flex: 1, width: '100%' }}>
@@ -42,9 +64,20 @@ const MyMap = () => {
         maxZoom={20}
         zoom={15}
         loadingIndicator={() => <ActivityIndicator />}
-        onMessage={(message) => {
-          // You can capture map interacions here
-          //console.log(message);
+        onMessage={(message: any) => {
+          console.log('>>>', message);
+
+          if (message.tag === 'onMapClicked') {
+            const latitude = message.location.lat;
+            const longitude = message.location.lng;
+
+            modal.show(
+              <CreateTroubleModal 
+                latitude={latitude}
+                longitude={longitude} 
+              />
+            );
+          }
         }}
       />
     </View>
