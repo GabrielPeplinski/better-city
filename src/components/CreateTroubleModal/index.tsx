@@ -18,7 +18,7 @@ interface Props {
 
 const CreateTroubleModal = (props: Props) => {
   const modal = useModal();
-  const { create } = useCollection<Troubles>('troubles', false);
+  const { create, refreshData } = useCollection<Troubles>('troubles', false);
   const { user } = useAuth();
 
   interface TroubleProps {
@@ -40,6 +40,7 @@ const CreateTroubleModal = (props: Props) => {
       });
 
       modal.hide();
+      await refreshData();
     } catch (error: any) {
       console.log(error);
       Alert.alert('Não foi possível cadastrar a sua reclamação');

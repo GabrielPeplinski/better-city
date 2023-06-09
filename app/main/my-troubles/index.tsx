@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Troubles from 'src/types/Troubles';
 
 const MyTroublesScreen = () => {
-  const { data } = useCollection<Troubles>('troubles');
+  const { data } = useCollection<Troubles>('troubles', true);
 
   return (
     <View>
@@ -17,7 +17,9 @@ const MyTroublesScreen = () => {
           })}
           renderItem={({ item }) => <ShowTrouble trouble={item} />}
           keyExtractor={(item) => item.id!}
-          ListEmptyComponent={() => <Text>Você ainda não cadastrou nenhuma reclamação!</Text>}
+          ListEmptyComponent={
+            () => <Text>Você ainda não cadastrou nenhuma reclamação!</Text>
+          }
         />
       </ScrollView>
     </View>

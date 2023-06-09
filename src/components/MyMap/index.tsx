@@ -29,21 +29,31 @@ const MyMap = () => {
   let aqui = geolocationApiService.getCoordinatesByAddress(address);
   console.log('aqui', aqui);
 
-  //console.log('CONTEXT:', latitude, longitude);
-
-  const { data, loading, create, remove, update, all } =
+  const { data, refreshData } =
     useCollection<Troubles>('troubles');
 
   console.log(data);
 
-  const markers: MapMarker[] = [
+  const troublesList = data.map((item): MapMarker => {
+    return {
+      id: item.id,
+      title: item.title,
+      position: [item.latitude, item.longitude],
+      icon: "<div>❌</div>",
+      size: [24, 24]
+    };
+  });
+
+  const userLocation: MapMarker[] = [
     {
       id: '1',
       position: { lat: latitude, lng: longitude },
-      icon: "<div style='color:blue'>👤</div>", // This icon should be an HTML Element because it's rendered inside a webview!
+      icon: "<div style='color:blue'>👤</div>",
       size: [24, 24],
     },
   ];
+
+  const markers = userLocation.concat(troublesList);
 
   return (
     <View style={{ flex: 1, width: '100%' }}>
