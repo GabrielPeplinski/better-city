@@ -1,17 +1,18 @@
-import ShowTrouble from '@components/ShowTrouble';
+import TroubleItemList from '@components/TroubleItemList';
 import useCollection from '@hooks/useCollection';
+import theme from '@themes/theme';
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
 import Troubles from 'src/types/Troubles';
 
 const MyTroublesScreen = () => {
   const { data } = useCollection<Troubles>('troubles', true);
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={data}
-        renderItem={({ item }) => <ShowTrouble trouble={item} />}
+        renderItem={({ item }) => <TroubleItemList trouble={item} />}
         keyExtractor={(item) => item.id!}
         ListEmptyComponent={() => (
           <Text>Você ainda não cadastrou nenhuma reclamação!</Text>
@@ -20,5 +21,14 @@ const MyTroublesScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.primary,
+  },
+});
 
 export default MyTroublesScreen;

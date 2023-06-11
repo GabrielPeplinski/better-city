@@ -27,12 +27,9 @@ const MyMap = () => {
   const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná';
 
   let aqui = geolocationApiService.getCoordinatesByAddress(address);
-  console.log('aqui', aqui);
 
   const { data, refreshData } =
     useCollection<Troubles>('troubles');
-
-  console.log(data);
 
   const troublesList = data.map((item): MapMarker => {
     return {
@@ -47,6 +44,7 @@ const MyMap = () => {
   const userLocation: MapMarker[] = [
     {
       id: '1',
+      title: 'Você está aqui!',
       position: { lat: latitude, lng: longitude },
       icon: "<div style='color:blue'>👤</div>",
       size: [24, 24],
