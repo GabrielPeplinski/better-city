@@ -4,7 +4,6 @@ import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 import useCollection from '@hooks/useCollection';
 import Troubles from 'src/types/Troubles';
-import GeolocationApiService from '@services/GeolocationApiService';
 import { useModal } from '@components/ModalProvider';
 import CreateTroubleModal from '@components/CreateTroubleModal';
 
@@ -22,11 +21,6 @@ const mapLayer: MapLayer = {
 const MyMap = () => {
   const modal = useModal();
   const { latitude, longitude } = useLocationCoordinates();
-
-  const geolocationApiService = new GeolocationApiService();
-  const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná';
-
-  let aqui = geolocationApiService.getCoordinatesByAddress(address);
 
   const { data, refreshData } =
     useCollection<Troubles>('troubles');

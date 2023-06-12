@@ -1,10 +1,15 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React, { useEffect } from 'react';
 import theme from '@themes/theme';
 import MyMap from '@components/MyMap';
 import * as Location from 'expo-location';
+import SearchAddressModal from '@components/SearchAddressModal';
+import { useModal } from '@components/ModalProvider';
+import Button from '@components/Button';
 
 const MainScreen = () => {
+  const modal = useModal();
+
   useEffect(() => {
     const getLocation = async () => {
       try {
@@ -21,8 +26,16 @@ const MainScreen = () => {
     getLocation();
   }, []);
 
+  const handleClick = () => {
+    modal.show(<SearchAddressModal />);
+  };
+
   return (
     <View style={styles.container}>
+      <Button
+        labelButton='Pesquisar'
+        onPress={handleClick}
+      />
       <MyMap />
     </View>
   );
@@ -34,14 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
-  },
-  button: {
-    width: '80%',
-    marginVertical: 10,
-  },
-  text: {
-    color: theme.fonts.primaryColor,
-  },
+  }
 });
 
 export default MainScreen;
