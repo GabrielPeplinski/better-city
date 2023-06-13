@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Input from '@components/Input';
 import theme from '@themes/theme';
@@ -81,14 +81,10 @@ const CreateTroubleModal = (props: Props) => {
                 <Text style={theme.formErrors}>{errors.description}</Text>
               )}
               <Button labelButton="Cadastrar" onPress={handleSubmit} />
+              <Button labelButton="Cancelar" onPress={modal.hide} />
             </View>
           )}
         </Formik>
-      </View>
-      <View>
-        <Pressable style={styles.cancelButton} onPress={modal.hide}>
-          <Text>Cancelar</Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -105,10 +101,7 @@ const styles = StyleSheet.create({
   },
   form: {
     width: '80%',
-  },
-  cancelButton: {
-    backgroundColor: 'red',
-  },
+  }
 });
 
 export default CreateTroubleModal;

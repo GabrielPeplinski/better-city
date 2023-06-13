@@ -4,7 +4,7 @@ import React from 'react';
 const Input = ({ label = null, placeholder, value, onChange }) => {
   return (
     <View>
-      <Text style={styles.label}>{label}:</Text>
+      <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.input}
         placeholder={placeholder}

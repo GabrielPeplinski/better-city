@@ -1,4 +1,4 @@
-import { Alert, View, StyleSheet } from 'react-native';
+import { Alert, View, StyleSheet, Pressable, Text } from 'react-native';
 import React, { useState } from 'react';
 import GeolocationApiService from '@services/GeolocationApiService';
 import Input from '@components/Input';
@@ -10,13 +10,10 @@ const SearchAddressModal = () => {
   const [address, setAddress] = useState('');
   const modal = useModal();
 
-  interface SearchAddressProps {
-    address: string;
-  }
-
-  const searchAddress = (values: SearchAddressProps) => {
+  const searchAddress = () => {
     try {
-      const data = geolocationApi.getCoordinatesByAddress(values.address);
+      console.log(address);
+      const data = geolocationApi.getCoordinatesByAddress(address);
 
       console.log(data)
       modal.hide();
@@ -32,6 +29,10 @@ const SearchAddressModal = () => {
         value={address}
         onChange={setAddress}
       />
+
+      <Pressable onPress={searchAddress}>
+        <Text>Buscar</Text>
+      </Pressable>
     </View>
   );
 };
