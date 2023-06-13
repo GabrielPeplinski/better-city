@@ -11,6 +11,7 @@ import { Formik } from 'formik';
 import TroubleValidation from '@validations/TroubleValidation';
 import useAuth from '@hooks/useAuth';
 import styles from '../styles';
+import TroubleProps from '../TroublesProps';
 
 interface Props {
   latitude: number;
@@ -21,11 +22,6 @@ const CreateTroubleModal = (props: Props) => {
   const modal = useModal();
   const { create, refreshData } = useCollection<Troubles>('troubles', false);
   const { user } = useAuth();
-
-  interface TroubleProps {
-    title: string;
-    description: string;
-  }
 
   const createTrouble = async (values: TroubleProps) => {
     let now = new Date();

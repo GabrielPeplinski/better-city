@@ -4,6 +4,7 @@ import Troubles from 'src/types/Troubles';
 import { useRouter } from 'expo-router';
 import { useModal } from '@components/ModalProvider';
 import EditTroubleModal from '@components/Troubles/EditTroubleModal';
+import ConfirmDeleteTroubleModal from '@components/Troubles/ConfirmDeleteTroubleModal';
 
 interface ShowTroubleProps {
   trouble: Troubles;
@@ -22,7 +23,11 @@ const TroubleItemList = ({trouble} : ShowTroubleProps) => {
   };
 
   const handleDelete = () => {
-
+    modal.show(
+      <ConfirmDeleteTroubleModal
+        trouble={trouble}
+      />
+    );
   };
 
   return (
@@ -32,6 +37,10 @@ const TroubleItemList = ({trouble} : ShowTroubleProps) => {
       <Text style={styles.date}>Adicionado em: {trouble.created_at}</Text>
       <Pressable onPress={handleEdit}>
         <Text>Editar</Text>
+      </Pressable>
+
+      <Pressable onPress={handleDelete}>
+        <Text>Deletar</Text>
       </Pressable>
     </View>
   );
