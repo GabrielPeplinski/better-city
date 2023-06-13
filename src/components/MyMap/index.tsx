@@ -5,7 +5,7 @@ import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProv
 import useCollection from '@hooks/useCollection';
 import Troubles from 'src/types/Troubles';
 import { useModal } from '@components/ModalProvider';
-import CreateTroubleModal from '@components/CreateTroubleModal';
+import CreateTroubleModal from '@components/Troubles/CreateTroubleModal';
 
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {

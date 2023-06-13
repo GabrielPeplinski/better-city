@@ -1,63 +1,57 @@
+import { Alert, Text, View } from 'react-native';
 import React from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Troubles from 'src/types/Troubles';
+import { Formik } from 'formik';
 import Input from '@components/Input';
 import theme from '@themes/theme';
-import Button from '@components/Button';
 import { useModal } from '@components/ModalProvider';
-import Troubles from 'src/types/Troubles';
-import useCollection from '@hooks/useCollection';
-import { Formik } from 'formik';
+import Button from '@components/Button';
 import TroubleValidation from '@validations/TroubleValidation';
-import useAuth from '@hooks/useAuth';
+import useCollection from '@hooks/useCollection';
+import { Feather } from '@expo/vector-icons';
+import styles from '../styles';
 
-interface Props {
-  latitude: number;
-  longitude: number;
+interface ShowTroubleProps {
+  trouble: Troubles;
 }
 
-const CreateTroubleModal = (props: Props) => {
+interface TroubleProps {
+  title: string;
+  description: string;
+}
+
+const EditTroubleModal = ({ trouble }: ShowTroubleProps) => {
   const modal = useModal();
-  const { create, refreshData } = useCollection<Troubles>('troubles', false);
-  const { user } = useAuth();
+  const { update, refreshData } = useCollection<Troubles>('troubles', true);
 
-  interface TroubleProps {
-    title: string;
-    description: string;
-  }
-
-  const createTrouble = async (values: TroubleProps) => {
-    let now = new Date();
-
+  const updateTroule = async (values: TroubleProps) => {
     try {
-      await create({
-        latitude: props.latitude,
-        longitude: props.longitude,
-        created_at: now.toISOString(),
-        is_solved: false,
-        user_id: user.uid,
+      await update(trouble.id, {
+        ...trouble,
         ...values,
       });
 
       modal.hide();
+      Alert.alert('Sua reclamação foi editada com sucesso!');
+
       await refreshData();
     } catch (error: any) {
       console.log(error);
-      Alert.alert('Não foi possível cadastrar a sua reclamação');
+      Alert.alert('Não foi possível editar a sua reclamação');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Ionicons name="add-circle" size={70} color="white" />
+      <Feather name="edit" size={70} color="white" />
       <View style={styles.form}>
         <Formik
           initialValues={{
-            title: '',
-            description: '',
+            title: trouble.title,
+            description: trouble.description,
           }}
           validationSchema={TroubleValidation}
-          onSubmit={(values) => createTrouble(values)}
+          onSubmit={(values) => updateTroule(values)}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
             <View>
@@ -80,7 +74,7 @@ const CreateTroubleModal = (props: Props) => {
               {errors.description && (
                 <Text style={theme.formErrors}>{errors.description}</Text>
               )}
-              <Button labelButton="Cadastrar" onPress={handleSubmit} />
+              <Button labelButton="Editar" onPress={handleSubmit} />
               <Button labelButton="Cancelar" onPress={modal.hide} />
             </View>
           )}
@@ -90,18 +84,4 @@ const CreateTroubleModal = (props: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.primary,
-  },
-  form: {
-    width: '80%',
-  }
-});
-
-export default CreateTroubleModal;
+export default EditTroubleModal;

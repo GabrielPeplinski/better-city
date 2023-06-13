@@ -1,17 +1,38 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 import React from 'react';
 import Troubles from 'src/types/Troubles';
+import { useRouter } from 'expo-router';
+import { useModal } from '@components/ModalProvider';
+import EditTroubleModal from '@components/Troubles/EditTroubleModal';
 
 interface ShowTroubleProps {
   trouble: Troubles;
 };
 
 const TroubleItemList = ({trouble} : ShowTroubleProps) => {
+  const router = useRouter();
+  const modal = useModal();
+
+  const handleEdit = () => {
+    modal.show(
+      <EditTroubleModal
+        trouble={trouble}
+      />
+    );
+  };
+
+  const handleDelete = () => {
+
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{trouble.title}</Text>
       <Text style={styles.description}>{trouble.description}</Text>
       <Text style={styles.date}>Adicionado em: {trouble.created_at}</Text>
+      <Pressable onPress={handleEdit}>
+        <Text>Editar</Text>
+      </Pressable>
     </View>
   );
 };
