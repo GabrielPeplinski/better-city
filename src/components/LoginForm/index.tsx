@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, Alert } from 'react-native';
+import { Text, View, StyleSheet, Image, Alert, Keyboard } from 'react-native';
 import React from 'react';
 import theme from '@themes/theme';
 import Button from '@components/Button';
@@ -20,6 +20,8 @@ const LoginForm = () => {
 
   const handleLogin = async (values: LoginProps) => {
     try {
+      Keyboard.dismiss();
+
       await login(values.email, values.password);
 
       router.push({
@@ -48,8 +50,8 @@ const LoginForm = () => {
 
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          email: 'gabriel@gmail.com',
+          password: '123456',
         }}
         validationSchema={LoginValidation}
         onSubmit={(values) => handleLogin(values)}

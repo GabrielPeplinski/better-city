@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable, Alert } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Input from '@components/Input';
 import theme from '@themes/theme';
@@ -10,6 +10,8 @@ import useCollection from '@hooks/useCollection';
 import { Formik } from 'formik';
 import TroubleValidation from '@validations/TroubleValidation';
 import useAuth from '@hooks/useAuth';
+import styles from '../styles';
+import TroubleProps from '../TroublesProps';
 
 interface Props {
   latitude: number;
@@ -18,13 +20,8 @@ interface Props {
 
 const CreateTroubleModal = (props: Props) => {
   const modal = useModal();
-  const { create, refreshData } = useCollection<Troubles>('troubles', false);
+  const { create } = useCollection<Troubles>('troubles', false);
   const { user } = useAuth();
-
-  interface TroubleProps {
-    title: string;
-    description: string;
-  }
 
   const createTrouble = async (values: TroubleProps) => {
     let now = new Date();
@@ -40,7 +37,6 @@ const CreateTroubleModal = (props: Props) => {
       });
 
       modal.hide();
-      await refreshData();
     } catch (error: any) {
       console.log(error);
       Alert.alert('Não foi possível cadastrar a sua reclamação');
@@ -81,32 +77,13 @@ const CreateTroubleModal = (props: Props) => {
                 <Text style={theme.formErrors}>{errors.description}</Text>
               )}
               <Button labelButton="Cadastrar" onPress={handleSubmit} />
+              <Button labelButton="Cancelar" onPress={modal.hide} />
             </View>
           )}
         </Formik>
       </View>
-      <View>
-        <Pressable style={styles.cancelButton} onPress={modal.hide}>
-          <Text>Cancelar</Text>
-        </Pressable>
-      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.primary,
-  },
-  form: {
-    width: '80%',
-  },
-  cancelButton: {
-    backgroundColor: 'red',
-  },
-});
 
 export default CreateTroubleModal;

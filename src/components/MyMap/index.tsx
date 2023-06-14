@@ -1,12 +1,11 @@
 import { View, ActivityIndicator } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 import useCollection from '@hooks/useCollection';
 import Troubles from 'src/types/Troubles';
-import GeolocationApiService from '@services/GeolocationApiService';
 import { useModal } from '@components/ModalProvider';
-import CreateTroubleModal from '@components/CreateTroubleModal';
+import CreateTroubleModal from '@components/Troubles/CreateTroubleModal';
 
 // Map Layer is based on OpenStreetMap, https://www.openstreetmap.org/#map=17/-25.35051/-51.47748
 const mapLayer: MapLayer = {
@@ -21,32 +20,29 @@ const mapLayer: MapLayer = {
 
 const MyMap = () => {
   const modal = useModal();
+
   const { latitude, longitude } = useLocationCoordinates();
 
-  const geolocationApiService = new GeolocationApiService();
-  const address = 'Rua Princesa Izabel, 272, Guarapuava, Paraná';
+  const { data, refreshData } = useCollection<Troubles>('troubles');
 
-  let aqui = geolocationApiService.getCoordinatesByAddress(address);
-  console.log('aqui', aqui);
-
-  const { data, refreshData } =
-    useCollection<Troubles>('troubles');
-
-  console.log(data);
+  useEffect(() => {
+    refreshData();
+  }, [modal.modalVisible]);
 
   const troublesList = data.map((item): MapMarker => {
     return {
       id: item.id,
       title: item.title,
       position: [item.latitude, item.longitude],
-      icon: "<div>❌</div>",
-      size: [24, 24]
+      icon: '<div>❌</div>',
+      size: [24, 24],
     };
   });
 
   const userLocation: MapMarker[] = [
     {
       id: '1',
+      title: 'Você está aqui!',
       position: { lat: latitude, lng: longitude },
       icon: "<div style='color:blue'>👤</div>",
       size: [24, 24],
@@ -72,10 +68,7 @@ const MyMap = () => {
             const longitude = message.location.lng;
 
             modal.show(
-              <CreateTroubleModal 
-                latitude={latitude}
-                longitude={longitude} 
-              />
+              <CreateTroubleModal latitude={latitude} longitude={longitude} />
             );
           }
         }}

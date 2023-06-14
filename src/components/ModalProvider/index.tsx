@@ -13,6 +13,7 @@ import styles from './styles';
 interface ModalContextProps {
   show: (content: ReactNode) => void;
   hide: () => void;
+  modalVisible: boolean;
 }
 
 // Step 2: Create the Context
@@ -29,6 +30,7 @@ export default function ModalProvider({ children }: PropsWithChildren) {
       setModalVisible(true);
     },
     hide: () => setModalVisible(false),
+    modalVisible,
   };
 
   return (

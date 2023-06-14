@@ -1,29 +1,46 @@
-import ShowTrouble from '@components/ShowTrouble';
+import { useModal } from '@components/ModalProvider';
+import TroubleItemList from '@components/TroubleItemList';
+import useAuth from '@hooks/useAuth';
 import useCollection from '@hooks/useCollection';
-import React from 'react';
-import { FlatList, View, Text } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import theme from '@themes/theme';
+import React, { useEffect } from 'react';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
 import Troubles from 'src/types/Troubles';
 
 const MyTroublesScreen = () => {
-  const { data } = useCollection<Troubles>('troubles', true);
+  const { data, refreshData } = useCollection<Troubles>('troubles', true);
+  const { user } = useAuth();
+  const modal = useModal();
+  
+  const myItens = data.filter((item) => {
+    return item.user_id == user.uid;
+  });
+
+  useEffect(() => {
+    refreshData();
+  }, [modal.modalVisible])
 
   return (
-    <View>
-      <ScrollView>
-        <FlatList
-          data={data.filter(() => {
-            
-          })}
-          renderItem={({ item }) => <ShowTrouble trouble={item} />}
-          keyExtractor={(item) => item.id!}
-          ListEmptyComponent={
-            () => <Text>Você ainda não cadastrou nenhuma reclamação!</Text>
-          }
-        />
-      </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        data={myItens}
+        renderItem={({ item }) => <TroubleItemList trouble={item} />}
+        keyExtractor={(item) => item.id!}
+        ListEmptyComponent={() => (
+          <Text>Você ainda não cadastrou nenhuma reclamação!</Text>
+        )}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.primary,
+  },
+});
 
 export default MyTroublesScreen;
