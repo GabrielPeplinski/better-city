@@ -1,5 +1,5 @@
 import { View, ActivityIndicator } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ExpoLeaflet, MapLayer, MapMarker } from 'expo-leaflet';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 import useCollection from '@hooks/useCollection';
@@ -20,18 +20,22 @@ const mapLayer: MapLayer = {
 
 const MyMap = () => {
   const modal = useModal();
+
   const { latitude, longitude } = useLocationCoordinates();
 
-  const { data, refreshData } =
-    useCollection<Troubles>('troubles');
+  const { data, refreshData } = useCollection<Troubles>('troubles');
+
+  useEffect(() => {
+    refreshData();
+  }, [modal.modalVisible]);
 
   const troublesList = data.map((item): MapMarker => {
     return {
       id: item.id,
       title: item.title,
       position: [item.latitude, item.longitude],
-      icon: "<div>❌</div>",
-      size: [24, 24]
+      icon: '<div>❌</div>',
+      size: [24, 24],
     };
   });
 
@@ -64,10 +68,7 @@ const MyMap = () => {
             const longitude = message.location.lng;
 
             modal.show(
-              <CreateTroubleModal 
-                latitude={latitude}
-                longitude={longitude} 
-              />
+              <CreateTroubleModal latitude={latitude} longitude={longitude} />
             );
           }
         }}

@@ -7,12 +7,10 @@ import { useModal } from '@components/ModalProvider';
 import ShowTroubleProps from '../ShowTroublesProps';
 import useCollection from '@hooks/useCollection';
 import Troubles from 'src/types/Troubles';
-import { useRouter } from 'expo-router';
 
 const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
   const modal = useModal();
-  const router = useRouter();
-  const { remove, refreshData } = useCollection<Troubles>('troubles', true);
+  const { remove } = useCollection<Troubles>('troubles', true);
 
   const handleDelete = async () => {
     try {
@@ -21,9 +19,6 @@ const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
       modal.hide();
       Alert.alert('Sua reclamação foi excluída com sucesso!');
 
-      await refreshData();
-
-      router.push('my-troubles/index');
     } catch (error: any) {
       console.log(error);
       Alert.alert('Não foi possível excluir a sua reclamação');

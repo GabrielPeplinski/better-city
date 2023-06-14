@@ -11,13 +11,11 @@ import useCollection from '@hooks/useCollection';
 import { Feather } from '@expo/vector-icons';
 import styles from '../styles';
 import TroubleProps from '../TroublesProps';
-import { useRouter } from 'expo-router';
 import ShowTroubleProps from '../ShowTroublesProps';
 
 const EditTroubleModal = ({ trouble }: ShowTroubleProps) => {
   const modal = useModal();
-  const { update, refreshData } = useCollection<Troubles>('troubles', true);
-  const router = useRouter();
+  const { update } = useCollection<Troubles>('troubles', true);
 
   const updateTroule = async (values: TroubleProps) => {
     try {
@@ -28,10 +26,6 @@ const EditTroubleModal = ({ trouble }: ShowTroubleProps) => {
 
       modal.hide();
       Alert.alert('Sua reclamação foi editada com sucesso!');
-
-      await refreshData();
-
-      router.push('my-troubles/index');
     } catch (error: any) {
       console.log(error);
       Alert.alert('Não foi possível editar a sua reclamação');

@@ -1,18 +1,22 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Troubles from 'src/types/Troubles';
-import { useRouter } from 'expo-router';
 import { useModal } from '@components/ModalProvider';
 import EditTroubleModal from '@components/Troubles/EditTroubleModal';
 import ConfirmDeleteTroubleModal from '@components/Troubles/ConfirmDeleteTroubleModal';
+import useCollection from '@hooks/useCollection';
 
 interface ShowTroubleProps {
   trouble: Troubles;
 };
 
 const TroubleItemList = ({trouble} : ShowTroubleProps) => {
-  const router = useRouter();
   const modal = useModal();
+  const { refreshData } = useCollection<Troubles>('troubles', true);
+
+  useEffect(() => {
+    refreshData();
+  }, [modal.modalVisible]);
 
   const handleEdit = () => {
     modal.show(
