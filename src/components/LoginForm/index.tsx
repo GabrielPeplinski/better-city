@@ -1,5 +1,13 @@
-import { Text, View, StyleSheet, Image, Alert, Keyboard } from 'react-native';
-import React from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Keyboard,
+  ActivityIndicator,
+} from 'react-native';
+import React, { useState } from 'react';
 import theme from '@themes/theme';
 import Button from '@components/Button';
 import Input from '@components/Input';
@@ -12,6 +20,7 @@ import useAuth from '@hooks/useAuth';
 const LoginForm = () => {
   const router = useRouter();
   const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   interface LoginProps {
     email: string;
@@ -22,13 +31,15 @@ const LoginForm = () => {
     try {
       Keyboard.dismiss();
 
+      setIsLoading(true);
+
       await login(values.email, values.password);
 
       router.push({
         pathname: '/main',
       });
 
-      Alert.alert('Login deu boa');
+      setIsLoading(false);
     } catch (error: any) {
       Alert.alert('An error had ocurred!');
       console.log(error);
@@ -48,45 +59,50 @@ const LoginForm = () => {
         style={styles.logoImage}
       />
 
-      <Formik
-        initialValues={{
-          email: 'gabriel@gmail.com',
-          password: '123456',
-        }}
-        validationSchema={LoginValidation}
-        onSubmit={(values) => handleLogin(values)}
-      >
-        {({ handleChange, handleSubmit, values, errors }) => (
+      {isLoading ? (
+        <ActivityIndicator size="large" color={theme.colors.secondary} />
+      ) : (
+        <>
+          <Formik
+            initialValues={{
+              email: 'gabriel@gmail.com',
+              password: '123456',
+            }}
+            validationSchema={LoginValidation}
+            onSubmit={(values) => handleLogin(values)}
+          >
+            {({ handleChange, handleSubmit, values, errors }) => (
+              <View>
+                <Input
+                  label="Email"
+                  placeholder="Seu email"
+                  value={values.email}
+                  onChange={handleChange('email')}
+                />
+                {errors.email && (
+                  <Text style={theme.formErrors}>{errors.email}</Text>
+                )}
+
+                <PasswordInput
+                  label="Senha"
+                  placeholder="Digite sua senha"
+                  value={values.password}
+                  onChange={handleChange('password')}
+                />
+                {errors.password && (
+                  <Text style={theme.formErrors}>{errors.password}</Text>
+                )}
+
+                <Button labelButton="Login" onPress={handleSubmit} />
+              </View>
+            )}
+          </Formik>
           <View>
-            <Input
-              label="Email"
-              placeholder="Seu email"
-              value={values.email}
-              onChange={handleChange('email')}
-            />
-            {errors.email && (
-              <Text style={theme.formErrors}>{errors.email}</Text>
-            )}
-
-            <PasswordInput
-              label="Senha"
-              placeholder="Digite sua senha"
-              value={values.password}
-              onChange={handleChange('password')}
-            />
-            {errors.password && (
-              <Text style={theme.formErrors}>{errors.password}</Text>
-            )}
-
-            <Button labelButton="Login" onPress={handleSubmit} />
+            <Text style={styles.text}>Faça parte da diferença!</Text>
+            <Button labelButton="Cadastrar" onPress={createUser} />
           </View>
-        )}
-      </Formik>
-
-      <View>
-        <Text style={styles.text}>Faça parte da diferença!</Text>
-        <Button labelButton="Cadastrar" onPress={createUser} />
-      </View>
+        </>
+      )}
     </View>
   );
 };
