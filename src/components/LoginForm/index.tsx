@@ -4,8 +4,7 @@ import {
   StyleSheet,
   Image,
   Alert,
-  Keyboard,
-  ActivityIndicator,
+  Keyboard
 } from 'react-native';
 import React, { useState } from 'react';
 import theme from '@themes/theme';
@@ -16,6 +15,7 @@ import { Formik } from 'formik';
 import LoginValidation from '@validations/LoginValidation';
 import { useRouter } from 'expo-router';
 import useAuth from '@hooks/useAuth';
+import Loading from '@components/Loading';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -35,11 +35,11 @@ const LoginForm = () => {
 
       await login(values.email, values.password);
 
+      setIsLoading(false);
+
       router.push({
         pathname: '/main',
       });
-
-      setIsLoading(false);
     } catch (error: any) {
       Alert.alert('An error had ocurred!');
       console.log(error);
@@ -54,15 +54,14 @@ const LoginForm = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('@images/better-city-logo.png')}
-        style={styles.logoImage}
-      />
-
       {isLoading ? (
-        <ActivityIndicator size="large" color={theme.colors.secondary} />
+        <Loading />
       ) : (
         <>
+          <Image
+            source={require('@images/better-city-logo.png')}
+            style={styles.logoImage}
+          />
           <Formik
             initialValues={{
               email: 'gabriel@gmail.com',
