@@ -3,7 +3,7 @@ import axios from 'axios';
 // Nominatim - Openstreetmap 
 
 class GeolocationApiService {
-  async getCoordinatesByAddress(address: string): Promise<{ lat: number, lon: number }> {
+  async getCoordinatesByAddress(address: string) {
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`;
 
     try {
@@ -13,7 +13,9 @@ class GeolocationApiService {
         console.log('LAT:', response.data[0].lat)
         console.log('LONG:', response.data[0].lon)
 
-        return { lat: response.data[0].lat, lon: response.data[0].lon };
+        //return { lat: response.data[0].lat, lon: response.data[0].lon };
+
+        return response.data;
       } else {
         throw new Error('Nenhum resultado encontrado para o endereço fornecido.');
       }

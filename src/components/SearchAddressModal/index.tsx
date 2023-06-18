@@ -1,38 +1,83 @@
-import { Alert, View, StyleSheet, Pressable, Text } from 'react-native';
+import {
+  Alert,
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React, { useState } from 'react';
 import GeolocationApiService from '@services/GeolocationApiService';
 import Input from '@components/Input';
-import { useModal } from '@components/ModalProvider';
 import theme from '@themes/theme';
+import { Formik } from 'formik';
+import SearchAddressValidation from '@validations/SearchAddressValidation';
+import Button from '@components/Button';
+import AddressSearchItem from '@components/AddressSearchItem';
+
+interface SearchAddressProps {
+  address: string;
+}
 
 const SearchAddressModal = () => {
   const geolocationApi = new GeolocationApiService();
-  const [address, setAddress] = useState('');
-  const modal = useModal();
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const searchAddress = () => {
+  const searchAddress = async (values: SearchAddressProps) => {
+    setIsLoading(true);
+
     try {
-      console.log(address);
-      const data = geolocationApi.getCoordinatesByAddress(address);
+      const response = geolocationApi.getCoordinatesByAddress(values.address);
 
-      console.log(data)
-      modal.hide();
+      setData(await response);
+
+      setIsLoading(false);
     } catch (error: any) {
+      setIsLoading(false);
       Alert.alert('Ocorreu um erro ao buscar o endereco!');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Input
-        placeholder="Buscar endereco"
-        value={address}
-        onChange={setAddress}
-      />
+      <Formik
+        initialValues={{
+          address: '',
+        }}
+        validationSchema={SearchAddressValidation}
+        onSubmit={(values) => searchAddress(values)}
+      >
+        {({ handleChange, handleSubmit, values, errors }) => (
+          <View>
+            <Input
+              label="Endereço"
+              placeholder="Insira o endereço"
+              value={values.address}
+              onChange={handleChange('address')}
+            />
+            {errors.address && (
+              <Text style={theme.formErrors}>{errors.address}</Text>
+            )}
 
-      <Pressable onPress={searchAddress}>
-        <Text>Buscar</Text>
-      </Pressable>
+            {isLoading ? (
+              <ActivityIndicator size="small" color={theme.colors.secondary} />
+            ) : (
+              <Button labelButton="Buscar" onPress={handleSubmit} />
+            )}
+          </View>
+        )}
+      </Formik>
+      {data && (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => <AddressSearchItem address={item} />}
+          keyExtractor={(item) => item.place_id!}
+          ListEmptyComponent={() => (
+            <Text>O endereço buscado não foi encontrado!</Text>
+          )}
+        />
+      )}
     </View>
   );
 };
@@ -45,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
-  }
+  },
 });
 
 export default SearchAddressModal;
