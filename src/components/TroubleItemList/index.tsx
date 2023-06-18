@@ -1,18 +1,21 @@
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import Troubles from 'src/types/Troubles';
 import { useModal } from '@components/ModalProvider';
 import EditTroubleModal from '@components/Troubles/EditTroubleModal';
 import ConfirmDeleteTroubleModal from '@components/Troubles/ConfirmDeleteTroubleModal';
 import useCollection from '@hooks/useCollection';
+import Button from '@components/Button';
+import theme from '@themes/theme';
 
 interface ShowTroubleProps {
   trouble: Troubles;
-};
+}
 
-const TroubleItemList = ({trouble} : ShowTroubleProps) => {
+const TroubleItemList = ({ trouble }: ShowTroubleProps) => {
   const modal = useModal();
   const { refreshData } = useCollection<Troubles>('troubles', true);
+  const formattedDate = new Date(trouble.created_at).toLocaleDateString('pt-BR');
 
   useEffect(() => {
     refreshData();
@@ -20,17 +23,13 @@ const TroubleItemList = ({trouble} : ShowTroubleProps) => {
 
   const handleEdit = () => {
     modal.show(
-      <EditTroubleModal
-        trouble={trouble}
-      />
+      <EditTroubleModal trouble={trouble} />
     );
   };
 
   const handleDelete = () => {
     modal.show(
-      <ConfirmDeleteTroubleModal
-        trouble={trouble}
-      />
+      <ConfirmDeleteTroubleModal trouble={trouble} />
     );
   };
 
@@ -38,14 +37,19 @@ const TroubleItemList = ({trouble} : ShowTroubleProps) => {
     <View style={styles.container}>
       <Text style={styles.title}>{trouble.title}</Text>
       <Text style={styles.description}>{trouble.description}</Text>
-      <Text style={styles.date}>Adicionado em: {trouble.created_at}</Text>
-      <Pressable onPress={handleEdit}>
-        <Text>Editar</Text>
-      </Pressable>
-
-      <Pressable onPress={handleDelete}>
-        <Text>Deletar</Text>
-      </Pressable>
+      <Text style={styles.date}>Adicionado em: {formattedDate}</Text>
+      <View style={styles.optionsButtons}>
+        <Button
+          labelButton="   Editar   "
+          onPress={handleEdit}
+          color={theme.colors.warning}
+        />
+        <Button
+          labelButton="   Deletar   "
+          onPress={handleDelete}
+          color={theme.colors.danger}
+        />
+      </View>
     </View>
   );
 };
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     padding: 24,
     marginBottom: 16,
     borderRadius: 8,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontSize: 18,
@@ -73,7 +77,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
   },
+  optionsButtons: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
 });
-
 
 export default TroubleItemList;
