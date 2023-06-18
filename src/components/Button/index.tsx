@@ -5,13 +5,19 @@ import theme from '@themes/theme';
 interface ButtonProps {
   labelButton: string;
   onPress: () => void;
+  color?: string;
 }
 
 const Button = (props: ButtonProps) => {
   return (
     <View>
-      <Pressable style={styles.button} onPress={props.onPress}>
-        <Text style={styles.text}>{props.labelButton}</Text>
+      <Pressable
+        style={[styles.button, props.color && { backgroundColor: props.color }]}
+        onPress={props.onPress}
+      >
+        <Text style={[styles.text, props.color && { color: 'black' }]}>
+          {props.labelButton}
+        </Text>
       </Pressable>
     </View>
   );
