@@ -35,12 +35,13 @@ const LoginForm = () => {
 
       await login(values.email, values.password);
 
-      setIsLoading(false);
-
       router.push({
         pathname: '/main',
       });
+
+      setIsLoading(false);
     } catch (error: any) {
+      setIsLoading(false);
       Alert.alert('An error had ocurred!');
       console.log(error);
     }
