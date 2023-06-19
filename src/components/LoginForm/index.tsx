@@ -42,7 +42,7 @@ const LoginForm = () => {
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(false);
-      Alert.alert('An error had ocurred!');
+      Alert.alert('Ocorreu um erro ao realizar o login!');
       console.log(error);
     }
   };

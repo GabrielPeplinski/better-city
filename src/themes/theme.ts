@@ -4,7 +4,8 @@ const theme = {
     secondary: 'white',
     error: 'yellow',
     warning: '#FFFF00',
-    danger:'#FF4500'
+    danger:'#FF4500',
+    success: '#008080'
   },
   fonts: {
     primaryColor: 'white'
