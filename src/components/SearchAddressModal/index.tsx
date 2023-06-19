@@ -15,6 +15,7 @@ import { Formik } from 'formik';
 import SearchAddressValidation from '@validations/SearchAddressValidation';
 import Button from '@components/Button';
 import AddressSearchItem from '@components/AddressSearchItem';
+import { useRouter } from 'expo-router';
 
 interface SearchAddressProps {
   address: string;
@@ -24,6 +25,7 @@ const SearchAddressModal = () => {
   const geolocationApi = new GeolocationApiService();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const searchAddress = async (values: SearchAddressProps) => {
     setIsLoading(true);
