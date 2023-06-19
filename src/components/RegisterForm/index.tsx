@@ -11,19 +11,17 @@ import useAuth from '@hooks/useAuth';
 import Loading from '@components/Loading';
 import { useRouter } from 'expo-router';
 
+interface RegisterProps {
+  email: string;
+  password: string;
+}
+
 const CreateUserForm = () => {
   const { register } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  interface RegisterProps {
-    email: string;
-    password: string;
-  }
-
   const createUser = async (values: RegisterProps) => {
-    console.log('Paola gostosa hehehe');
-
     try {
       Keyboard.dismiss();
 

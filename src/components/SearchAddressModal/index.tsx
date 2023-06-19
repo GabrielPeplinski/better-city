@@ -5,6 +5,7 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
+  Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
 import GeolocationApiService from '@services/GeolocationApiService';
@@ -28,6 +29,7 @@ const SearchAddressModal = () => {
     setIsLoading(true);
 
     try {
+      Keyboard.dismiss();
       const response = geolocationApi.getCoordinatesByAddress(values.address);
 
       setData(await response);

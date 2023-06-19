@@ -26,11 +26,14 @@ export function LocationCoordenatesContextProvider({
   useEffect(() => {
     const getLocation = async () => {
       try {
-        // initial setup
-        const location = await Location.getCurrentPositionAsync({});
+        const permission = Location.requestForegroundPermissionsAsync();
 
-        setLatitude(location.coords.latitude);
-        setLongitude(location.coords.longitude);
+        if (permission) {
+          const location = await Location.getCurrentPositionAsync({});
+
+          setLatitude(location.coords.latitude);
+          setLongitude(location.coords.longitude);
+        }
       } catch (error) {
         console.error('Erro ao obter a localização:', error);
       }
