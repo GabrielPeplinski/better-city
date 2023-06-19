@@ -78,7 +78,7 @@ const SearchAddressModal = () => {
           renderItem={({ item }) => <AddressSearchItem address={item} />}
           keyExtractor={(item) => item.place_id!}
           ListEmptyComponent={() => (
-            <Text>O endereço buscado não foi encontrado!</Text>
+            <Text style={styles.text}>O endereço buscado não foi encontrado!</Text>
           )}
         />
       )}
@@ -95,6 +95,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
   },
+  text: {
+    color: 'white',
+    fontSize: 15
+  }
 });
 
 export default SearchAddressModal;
