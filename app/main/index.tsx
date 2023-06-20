@@ -10,7 +10,9 @@ const MainScreen = () => {
   const modal = useModal();
 
   const handleClick = () => {
-    modal.show(<SearchAddressModal />);
+    modal.show(
+      <SearchAddressModal />
+    );
   };
 
   return (
