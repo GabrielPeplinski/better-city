@@ -51,13 +51,12 @@ const CreateUserForm = () => {
           <View style={styles.form}>
             <Formik
               initialValues={{
-                email: 'paola@gmail.com',
-                password: '121212',
-                confirmPassword: '121212',
+                email: '',
+                password: '',
+                confirmPassword: '',
               }}
               validationSchema={RegisterValidation}
               onSubmit={(values) => createUser(values)}
-              //onSubmit={(values) => console.log(values)}
             >
               {({ handleChange, handleSubmit, values, errors }) => (
                 <View>
