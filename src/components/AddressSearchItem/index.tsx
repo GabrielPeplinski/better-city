@@ -2,7 +2,6 @@ import Button from '@components/Button';
 import { useModal } from '@components/ModalProvider';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 import theme from '@themes/theme';
-import { useRouter } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import AddressSearchResult from 'src/types/AddressSearchResult';
@@ -13,11 +12,11 @@ interface AddressSearchItemProps {
 
 const AddressSearchItem = ({ address }: AddressSearchItemProps) => {
   const modal = useModal();
-  //const { setLatitude, setLongitude } = useLocationCoordinates();
+  const { setLatitude, setLongitude } = useLocationCoordinates();
 
   const handleSelect = () => {
-    //setLatitude(parseInt(address.lat));
-    //setLongitude(parseInt(address.lon));
+    setLatitude(parseFloat(address.lat));
+    setLongitude(parseFloat(address.lon));
 
     modal.hide();
     console.log(address)
