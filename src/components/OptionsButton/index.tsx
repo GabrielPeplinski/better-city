@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -7,10 +7,12 @@ import theme from '@themes/theme';
 import { useModal } from '@components/ModalProvider';
 import SearchAddressModal from '@components/SearchAddressModal';
 import * as Location from 'expo-location';
+import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 
 const OptionsButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const modal = useModal();
+  const { setLatitude, setLongitude } = useLocationCoordinates();
 
   const handleButtonPress = () => {
     setIsOpen(!isOpen);
@@ -22,7 +24,22 @@ const OptionsButton = () => {
     modal.show(<SearchAddressModal />);
   };
 
-  const goToActualLocation = () => {};
+  const goToActualLocation = () => {
+    handleButtonPress();
+
+    const getLocation = async () => {
+      try {
+        const location = await Location.getCurrentPositionAsync({});
+
+        setLatitude(location.coords.latitude);
+        setLongitude(location.coords.longitude);
+      } catch (error) {
+        console.error('Erro ao obter a localização:', error);
+      }
+    };
+
+    getLocation();
+  };
 
   return (
     <View style={styles.floatContainer}>
