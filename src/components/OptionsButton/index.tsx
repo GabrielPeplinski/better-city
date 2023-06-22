@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   button: {
     position: 'absolute',
     bottom: 16,
-    right: 16,
+    left: 150,
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     width: 40,
     height: 40,
+    left: 210,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,
