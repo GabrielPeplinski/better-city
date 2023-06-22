@@ -70,7 +70,7 @@ const SearchAddressModal = () => {
           </View>
         )}
       </Formik>
-      {data && (
+      {data.length > 0 && (
         <FlatList
           data={data}
           renderItem={({ item }) => <AddressSearchItem address={item} />}
