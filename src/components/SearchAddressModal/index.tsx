@@ -15,7 +15,7 @@ import { Formik } from 'formik';
 import SearchAddressValidation from '@validations/SearchAddressValidation';
 import Button from '@components/Button';
 import AddressSearchItem from '@components/AddressSearchItem';
-import { useRouter } from 'expo-router';
+import { useModal } from '@components/ModalProvider';
 
 interface SearchAddressProps {
   address: string;
@@ -25,7 +25,11 @@ const SearchAddressModal = () => {
   const geolocationApi = new GeolocationApiService();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const modal = useModal();
+
+  const closeModal = () => {
+    modal.hide();
+  };
 
   const searchAddress = async (values: SearchAddressProps) => {
     setIsLoading(true);
@@ -69,16 +73,17 @@ const SearchAddressModal = () => {
             ) : (
               <Button labelButton="Buscar" onPress={handleSubmit} />
             )}
+            <Button labelButton="Cancelar" onPress={closeModal} color={theme.colors.danger}/>
           </View>
         )}
       </Formik>
-      {data && (
+      {data.length > 0 && (
         <FlatList
           data={data}
           renderItem={({ item }) => <AddressSearchItem address={item} />}
           keyExtractor={(item) => item.place_id!}
           ListEmptyComponent={() => (
-            <Text>O endereço buscado não foi encontrado!</Text>
+            <Text style={styles.text}>O endereço buscado não foi encontrado!</Text>
           )}
         />
       )}
@@ -95,6 +100,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
   },
+  text: {
+    color: 'white',
+    fontSize: 15
+  }
 });
 
 export default SearchAddressModal;

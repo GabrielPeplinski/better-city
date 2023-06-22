@@ -1,42 +1,14 @@
 import { View, StyleSheet } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import theme from '@themes/theme';
 import MyMap from '@components/MyMap';
-import * as Location from 'expo-location';
-import SearchAddressModal from '@components/SearchAddressModal';
-import { useModal } from '@components/ModalProvider';
-import Button from '@components/Button';
+import OptionsButton from '@components/OptionsButton';
 
 const MainScreen = () => {
-  const modal = useModal();
-
-  useEffect(() => {
-    const getLocation = async () => {
-      try {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-
-        if (status !== 'granted') {
-          throw new Error('Permissão de localização não concedida');
-        }
-      } catch (error) {
-        console.error('Erro ao obter a localização:', error);
-      }
-    };
-
-    getLocation();
-  }, []);
-
-  const handleClick = () => {
-    modal.show(<SearchAddressModal />);
-  };
-
   return (
     <View style={styles.container}>
-      <Button
-        labelButton='Pesquisar'
-        onPress={handleClick}
-      />
       <MyMap />
+      <OptionsButton/>
     </View>
   );
 };

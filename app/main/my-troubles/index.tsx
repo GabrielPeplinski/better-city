@@ -27,7 +27,7 @@ const MyTroublesScreen = () => {
         renderItem={({ item }) => <TroubleItemList trouble={item} />}
         keyExtractor={(item) => item.id!}
         ListEmptyComponent={() => (
-          <Text>Você ainda não cadastrou nenhuma reclamação!</Text>
+          <Text style={styles.text}>Você ainda não cadastrou nenhuma reclamação!</Text>
         )}
       />
     </View>
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
   },
+  text: {
+    color: 'white',
+    fontSize: 15
+  }
 });
 
 export default MyTroublesScreen;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function _layout() {
   type ScreenProps = {
@@ -31,7 +31,7 @@ export default function _layout() {
         return {
           tabBarIcon: ({ focused, size }) => {
             return (
-              <Ionicons
+              <FontAwesome 
                 name={Screens[route.name]?.icon as any}
                 size={size}
                 color={focused ? '#4b4b4b' : '#7c7d7c'}

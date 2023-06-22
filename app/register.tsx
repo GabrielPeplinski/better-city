@@ -3,7 +3,7 @@ import RegisterForm from '@components/RegisterForm';
 
 const newUserScreen = () => {
   return (
-      <RegisterForm />
+    <RegisterForm />
   );
 };
 

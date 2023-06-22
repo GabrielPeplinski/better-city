@@ -77,7 +77,7 @@ const CreateTroubleModal = (props: Props) => {
                 <Text style={theme.formErrors}>{errors.description}</Text>
               )}
               <Button labelButton="Cadastrar" onPress={handleSubmit} />
-              <Button labelButton="Cancelar" onPress={modal.hide} />
+              <Button labelButton="Cancelar" onPress={modal.hide} color={theme.colors.danger}/>
             </View>
           )}
         </Formik>
