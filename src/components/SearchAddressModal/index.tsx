@@ -15,6 +15,7 @@ import { Formik } from 'formik';
 import SearchAddressValidation from '@validations/SearchAddressValidation';
 import Button from '@components/Button';
 import AddressSearchItem from '@components/AddressSearchItem';
+import { useModal } from '@components/ModalProvider';
 
 interface SearchAddressProps {
   address: string;
@@ -24,6 +25,11 @@ const SearchAddressModal = () => {
   const geolocationApi = new GeolocationApiService();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const modal = useModal();
+
+  const closeModal = () => {
+    modal.hide();
+  };
 
   const searchAddress = async (values: SearchAddressProps) => {
     setIsLoading(true);
@@ -67,6 +73,7 @@ const SearchAddressModal = () => {
             ) : (
               <Button labelButton="Buscar" onPress={handleSubmit} />
             )}
+            <Button labelButton="Cancelar" onPress={closeModal} color={theme.colors.danger}/>
           </View>
         )}
       </Formik>

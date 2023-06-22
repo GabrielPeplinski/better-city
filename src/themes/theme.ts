@@ -3,8 +3,8 @@ const theme = {
     primary: '#082942',
     secondary: 'white',
     error: 'yellow',
-    warning: '#FFFF00',
-    danger:'#FF4500',
+    warning: '#FFBF00',
+    danger:'#d20301',
     success: '#008080'
   },
   fonts: {

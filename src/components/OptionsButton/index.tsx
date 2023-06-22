@@ -19,7 +19,9 @@ const OptionsButton = () => {
   const openSearchAddressModal = () => {
     handleButtonPress();
 
-    modal.show(<SearchAddressModal />);
+    modal.show(
+      <SearchAddressModal />
+    );
   };
 
   const goToActualLocation = () => {};

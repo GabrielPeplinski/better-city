@@ -15,7 +15,7 @@ const Button = (props: ButtonProps) => {
         style={[styles.button, props.color && { backgroundColor: props.color }]}
         onPress={props.onPress}
       >
-        <Text style={[styles.text, props.color && { color: 'black' }]}>
+        <Text style={styles.text}>
           {props.labelButton}
         </Text>
       </Pressable>
