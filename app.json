@@ -4,7 +4,7 @@
     "slug": "better-city-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/better-city-logo.png",
+    "icon": "./assets/images/better-city-icon.jpg",
     "userInterfaceStyle": "light",
     "scheme": "myapp",
     "splash": {
@@ -29,6 +29,11 @@
     "web": {
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f3441b48-551d-477f-bdcf-b7aa425389ee"
+      }
     }
   }
 }
