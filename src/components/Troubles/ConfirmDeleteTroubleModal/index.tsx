@@ -7,6 +7,7 @@ import { useModal } from '@components/ModalProvider';
 import ShowTroubleProps from '../ShowTroublesProps';
 import useCollection from '@hooks/useCollection';
 import Troubles from 'src/types/Troubles';
+import theme from '@themes/theme';
 
 const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
   const modal = useModal();
@@ -30,7 +31,7 @@ const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
       <MaterialIcons name="delete" size={70} color="white" />
       <View style={styles.form}>
         <Button labelButton="Deletar" onPress={handleDelete} />
-        <Button labelButton="Cancelar" onPress={modal.hide} />
+        <Button labelButton="Cancelar" onPress={modal.hide} color={theme.colors.danger}/>
       </View>
     </View>
   );
