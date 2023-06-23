@@ -72,7 +72,7 @@ const LoginForm = () => {
             onSubmit={(values) => handleLogin(values)}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
-              <View>
+              <View style={styles.form}>
                 <Input
                   label="Email"
                   placeholder="Seu email"
@@ -97,7 +97,7 @@ const LoginForm = () => {
               </View>
             )}
           </Formik>
-          <View>
+          <View style={styles.form}>
             <Text style={styles.text}>Faça parte da diferença!</Text>
             <Button labelButton="Cadastrar" onPress={createUser} />
           </View>
@@ -109,9 +109,10 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: theme.colors.primary,
   },
   form: {
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   text: {
+    textAlign: 'center',
     color: 'white',
   },
 });
