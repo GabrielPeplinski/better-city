@@ -11,8 +11,9 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import { View, StyleSheet, Text, Alert, Keyboard } from 'react-native';
 import UserPropsInterface from 'src/interfaces/UserPropsInterface';
+import React from 'react';
 
-const RegisterFormCopy = () => {
+const RegisterForm = () => {
   const router = useRouter();
   const { register } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ const RegisterFormCopy = () => {
       await register(values.email, values.password);
 
       router.push({
-        pathname: '/index',
+        pathname: 'index',
       });
 
       setIsLoading(false);
@@ -46,9 +47,9 @@ const RegisterFormCopy = () => {
           <FontAwesome name="user-circle-o" size={70} color="white" />
           <Formik
             initialValues={{
-              email: 'paola@gmail.com',
-              password: '123456',
-              passwordConfirmation: '123456',
+              email: '',
+              password: '',
+              confirmPassword: '',
             }}
             validationSchema={RegisterValidation}
             onSubmit={(values) => handleRegister(values)}
@@ -76,15 +77,13 @@ const RegisterFormCopy = () => {
                 )}
 
                 <PasswordInput
-                  label="Cofirme sua senha"
-                  placeholder="Digite sua senha novamente"
-                  value={values.passwordConfirmation}
-                  onChange={handleChange('passwordConfirmation')}
+                  label="Senha"
+                  placeholder="Digite sua senha"
+                  value={values.confirmPassword}
+                  onChange={handleChange('confirmPassword')}
                 />
-                {errors.passwordConfirmation && (
-                  <Text style={theme.formErrors}>
-                    {errors.passwordConfirmation}
-                  </Text>
+                {errors.confirmPassword && (
+                  <Text style={theme.formErrors}>{errors.confirmPassword}</Text>
                 )}
 
                 <Button labelButton="Login" onPress={handleSubmit} />
@@ -92,7 +91,12 @@ const RegisterFormCopy = () => {
             )}
           </Formik>
           <View style={styles.form}>
-            <Button labelButton="Voltar" onPress={() => {router.back()}} />
+            <Button
+              labelButton="Voltar"
+              onPress={() => {
+                router.back();
+              }}
+            />
           </View>
         </>
       )}
@@ -121,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterFormCopy;
+export default RegisterForm;
