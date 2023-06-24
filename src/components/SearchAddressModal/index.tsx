@@ -15,7 +15,7 @@ import SearchAddressValidation from '@validations/SearchAddressValidation';
 import Button from '@components/Button';
 import AddressSearchItem from '@components/AddressSearchItem';
 import { useModal } from '@components/ModalProvider';
-import styles from '../styles';
+import styles from '../Troubles/styles';
 
 interface SearchAddressProps {
   address: string;
@@ -73,7 +73,11 @@ const SearchAddressModal = () => {
             ) : (
               <Button labelButton="Buscar" onPress={handleSubmit} />
             )}
-            <Button labelButton="Cancelar" onPress={closeModal} color={theme.colors.danger}/>
+            <Button
+              labelButton="Cancelar"
+              onPress={closeModal}
+              color={theme.colors.danger}
+            />
           </View>
         )}
       </Formik>
@@ -83,7 +87,9 @@ const SearchAddressModal = () => {
           renderItem={({ item }) => <AddressSearchItem address={item} />}
           keyExtractor={(item) => item.place_id!}
           ListEmptyComponent={() => (
-            <Text style={styles.text}>O endereço buscado não foi encontrado!</Text>
+            <Text style={styles.text}>
+              O endereço buscado não foi encontrado!
+            </Text>
           )}
         />
       )}

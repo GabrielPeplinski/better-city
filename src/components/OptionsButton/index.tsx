@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import theme from '@themes/theme';
 import { useModal } from '@components/ModalProvider';
-import SearchAddressModal from '@components/Troubles/SearchAddressModal';
+import SearchAddressModal from '@components/SearchAddressModal';
 import * as Location from 'expo-location';
 import { useLocationCoordinates } from '@contexts/LocationCoordenatesContextProvider';
 
