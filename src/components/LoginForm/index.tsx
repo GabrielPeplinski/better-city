@@ -16,18 +16,14 @@ import LoginValidation from '@validations/LoginValidation';
 import { useRouter } from 'expo-router';
 import useAuth from '@hooks/useAuth';
 import Loading from '@components/Loading';
+import UserPropsInterface from 'src/interfaces/UserPropsInterface';
 
 const LoginForm = () => {
   const router = useRouter();
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  interface LoginProps {
-    email: string;
-    password: string;
-  }
-
-  const handleLogin = async (values: LoginProps) => {
+  const handleLogin = async (values: UserPropsInterface) => {
     try {
       Keyboard.dismiss();
 
