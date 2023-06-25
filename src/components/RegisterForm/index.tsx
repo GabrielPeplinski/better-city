@@ -24,9 +24,9 @@ const RegisterForm = () => {
 
       setIsLoading(true);
 
-      //await register(values.email, values.password);
+      await register(values.email, values.password);
 
-      router.push('/index');
+      router.back();
 
       setIsLoading(false);
 
@@ -47,9 +47,9 @@ const RegisterForm = () => {
           <FontAwesome name="user-circle-o" size={70} color="white" />
           <Formik
             initialValues={{
-              email: 'paola@gmail.com',
-              password: '123123',
-              confirmPassword: '123123',
+              email: '',
+              password: '',
+              confirmPassword: '',
             }}
             validationSchema={RegisterValidation}
             onSubmit={(values) => handleRegister(values)}
