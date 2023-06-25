@@ -18,6 +18,11 @@ const mapLayer: MapLayer = {
     '&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors',
 };
 
+enum TroubleIconEnum {
+   NOT_SOLVED = "<div>❌</div>",
+   SOLVED = "<div>✅</div>",
+};
+
 const MyMap = () => {
   const modal = useModal();
 
@@ -30,11 +35,13 @@ const MyMap = () => {
   }, [modal.modalVisible]);
 
   const troublesList = data.map((item): MapMarker => {
+    const icon = item.is_solved ? TroubleIconEnum.SOLVED : TroubleIconEnum.NOT_SOLVED;
+
     return {
       id: item.id,
       title: item.title,
       position: [item.latitude, item.longitude],
-      icon: '<div>❌</div>',
+      icon: icon,
       size: [24, 24],
     };
   });
@@ -44,7 +51,7 @@ const MyMap = () => {
       id: '1',
       title: 'Você está aqui!',
       position: { lat: latitude, lng: longitude },
-      icon: "<div style='color:blue'>👤</div>",
+      icon: "<div>👤</div>",
       size: [24, 24],
     },
   ];

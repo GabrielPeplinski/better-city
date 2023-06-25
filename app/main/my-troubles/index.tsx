@@ -36,9 +36,11 @@ const MyTroublesScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     flex: 1,
-    alignItems: 'center',
+    width: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: theme.colors.primary,
   },
   text: {

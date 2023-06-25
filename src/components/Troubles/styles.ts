@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
   form: {
     width: '80%',
   },
+  text: {
+    color: 'white',
+    fontSize: 15
+  },
 });
 
 export default styles;

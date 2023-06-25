@@ -25,7 +25,8 @@ const EditTroubleModal = ({ trouble }: ShowTroubleProps) => {
       });
 
       modal.hide();
-      Alert.alert('Sua reclamação foi editada com sucesso!');
+
+      Alert.alert('Sua reclamação foi atualizada com sucesso!');
     } catch (error: any) {
       console.log(error);
       Alert.alert('Não foi possível editar a sua reclamação');
@@ -66,7 +67,7 @@ const EditTroubleModal = ({ trouble }: ShowTroubleProps) => {
                 <Text style={theme.formErrors}>{errors.description}</Text>
               )}
               <Button labelButton="Editar" onPress={handleSubmit} />
-              <Button labelButton="Cancelar" onPress={modal.hide} />
+              <Button labelButton="Cancelar" onPress={modal.hide} color={theme.colors.danger}/>
             </View>
           )}
         </Formik>

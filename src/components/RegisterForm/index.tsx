@@ -26,11 +26,11 @@ const RegisterForm = () => {
 
       await register(values.email, values.password);
 
-      router.push({
-        pathname: 'index',
-      });
+      router.back();
 
       setIsLoading(false);
+
+      Alert.alert('Seja bem-vindo! Seu usuário foi cadastrado com sucesso!')
     } catch (error: any) {
       setIsLoading(false);
       Alert.alert('Ocorreu um erro ao realizar seu cadastro!');
@@ -86,7 +86,7 @@ const RegisterForm = () => {
                   <Text style={theme.formErrors}>{errors.confirmPassword}</Text>
                 )}
 
-                <Button labelButton="Login" onPress={handleSubmit} />
+                <Button labelButton="Cadastrar" onPress={handleSubmit} />
               </View>
             )}
           </Formik>

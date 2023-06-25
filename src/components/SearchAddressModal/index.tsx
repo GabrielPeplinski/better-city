@@ -1,7 +1,6 @@
 import {
   Alert,
   View,
-  StyleSheet,
   Text,
   FlatList,
   ActivityIndicator,
@@ -16,6 +15,7 @@ import SearchAddressValidation from '@validations/SearchAddressValidation';
 import Button from '@components/Button';
 import AddressSearchItem from '@components/AddressSearchItem';
 import { useModal } from '@components/ModalProvider';
+import styles from '../Troubles/styles';
 
 interface SearchAddressProps {
   address: string;
@@ -57,7 +57,7 @@ const SearchAddressModal = () => {
         onSubmit={(values) => searchAddress(values)}
       >
         {({ handleChange, handleSubmit, values, errors }) => (
-          <View>
+          <View style={styles.form}>
             <Input
               label="Endereço"
               placeholder="Insira o endereço"
@@ -73,7 +73,11 @@ const SearchAddressModal = () => {
             ) : (
               <Button labelButton="Buscar" onPress={handleSubmit} />
             )}
-            <Button labelButton="Cancelar" onPress={closeModal} color={theme.colors.danger}/>
+            <Button
+              labelButton="Cancelar"
+              onPress={closeModal}
+              color={theme.colors.danger}
+            />
           </View>
         )}
       </Formik>
@@ -83,27 +87,14 @@ const SearchAddressModal = () => {
           renderItem={({ item }) => <AddressSearchItem address={item} />}
           keyExtractor={(item) => item.place_id!}
           ListEmptyComponent={() => (
-            <Text style={styles.text}>O endereço buscado não foi encontrado!</Text>
+            <Text style={styles.text}>
+              O endereço buscado não foi encontrado!
+            </Text>
           )}
         />
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.primary,
-  },
-  text: {
-    color: 'white',
-    fontSize: 15
-  }
-});
 
 export default SearchAddressModal;
