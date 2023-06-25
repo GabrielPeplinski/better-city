@@ -18,8 +18,8 @@ const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
       await remove(trouble.id);
 
       modal.hide();
-      Alert.alert('Sua reclamação foi excluída com sucesso!');
 
+      Alert.alert('Sua reclamação foi excluída com sucesso!');
     } catch (error: any) {
       console.log(error);
       Alert.alert('Não foi possível excluir a sua reclamação');

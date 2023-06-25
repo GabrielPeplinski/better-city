@@ -24,13 +24,13 @@ const RegisterForm = () => {
 
       setIsLoading(true);
 
-      await register(values.email, values.password);
+      //await register(values.email, values.password);
 
-      router.push({
-        pathname: 'index',
-      });
+      router.push('/index');
 
       setIsLoading(false);
+
+      Alert.alert('Seja bem-vindo! Seu usuário foi cadastrado com sucesso!')
     } catch (error: any) {
       setIsLoading(false);
       Alert.alert('Ocorreu um erro ao realizar seu cadastro!');
@@ -47,9 +47,9 @@ const RegisterForm = () => {
           <FontAwesome name="user-circle-o" size={70} color="white" />
           <Formik
             initialValues={{
-              email: '',
-              password: '',
-              confirmPassword: '',
+              email: 'paola@gmail.com',
+              password: '123123',
+              confirmPassword: '123123',
             }}
             validationSchema={RegisterValidation}
             onSubmit={(values) => handleRegister(values)}
@@ -86,7 +86,7 @@ const RegisterForm = () => {
                   <Text style={theme.formErrors}>{errors.confirmPassword}</Text>
                 )}
 
-                <Button labelButton="Login" onPress={handleSubmit} />
+                <Button labelButton="Cadastrar" onPress={handleSubmit} />
               </View>
             )}
           </Formik>
