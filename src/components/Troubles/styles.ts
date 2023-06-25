@@ -17,6 +17,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 15
   },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 16,
+    color: 'black',
+    marginBottom: 8,
+  },
 });
 
 export default styles;

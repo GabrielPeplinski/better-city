@@ -1,4 +1,4 @@
-import { Alert, View } from 'react-native';
+import { Alert, View, Text } from 'react-native';
 import React from 'react';
 import styles from '../styles';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -30,8 +30,14 @@ const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
     <View style={styles.container}>
       <MaterialIcons name="delete" size={70} color="white" />
       <View style={styles.form}>
+        <Text style={styles.title}>Deseja realmente excluir a relamação:</Text>
+        <Text style={styles.title}>{trouble.title}</Text>
         <Button labelButton="Deletar" onPress={handleDelete} />
-        <Button labelButton="Cancelar" onPress={modal.hide} color={theme.colors.danger}/>
+        <Button
+          labelButton="Cancelar"
+          onPress={modal.hide}
+          color={theme.colors.danger}
+        />
       </View>
     </View>
   );
