@@ -1,15 +1,16 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Better City",
+    "slug": "better-city-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/better-city-icon.jpg",
     "userInterfaceStyle": "light",
+    "scheme": "myapp",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/better-city-logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#082942"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -18,13 +19,21 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
+      "package": "com.gabrielpeplinski.bettercitypublish",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/better-city-logo.png",
+        "backgroundColor": "#082942"
       }
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f3441b48-551d-477f-bdcf-b7aa425389ee"
+      }
     }
   }
 }
