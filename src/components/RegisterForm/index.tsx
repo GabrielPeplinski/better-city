@@ -34,7 +34,6 @@ const RegisterForm = () => {
     } catch (error: any) {
       setIsLoading(false);
       Alert.alert('Ocorreu um erro ao realizar seu cadastro!');
-      console.log(error);
     }
   };
 

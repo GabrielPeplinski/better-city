@@ -10,9 +10,6 @@ class GeolocationApiService {
       const response = await axios.get(url);
       if (response.data.length > 0) {
 
-        console.log('LAT:', response.data[0].lat)
-        console.log('LONG:', response.data[0].lon)
-
         //return { lat: response.data[0].lat, lon: response.data[0].lon };
 
         return response.data;
@@ -20,7 +17,6 @@ class GeolocationApiService {
         throw new Error('Nenhum resultado encontrado para o endereço fornecido.');
       }
     } catch (error) {
-      console.error('Erro ao buscar coordenadas:', error);
       throw error;
     }
   }

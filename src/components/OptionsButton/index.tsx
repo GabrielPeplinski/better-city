@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
@@ -34,7 +34,7 @@ const OptionsButton = () => {
         setLatitude(location.coords.latitude);
         setLongitude(location.coords.longitude);
       } catch (error) {
-        console.error('Erro ao obter a localização:', error);
+        Alert.alert('Ocorreu um erro ao buscar a localização atual')
       }
     };
 

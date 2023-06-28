@@ -18,7 +18,6 @@ const DatePicker = () => {
       tempDate.getDate() + '/' + tempDate.getMonth() + 1 + '/' + tempDate.getFullYear();
 
     setShow(false);
-    console.log(formatedDate);
   };
 
   const showMode = () => {

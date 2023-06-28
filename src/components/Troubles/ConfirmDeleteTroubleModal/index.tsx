@@ -21,7 +21,6 @@ const ConfirmDeleteTroubleModal = ({ trouble }: ShowTroubleProps) => {
 
       Alert.alert('Sua reclamação foi excluída com sucesso!');
     } catch (error: any) {
-      console.log(error);
       Alert.alert('Não foi possível excluir a sua reclamação');
     }
   };

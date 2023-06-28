@@ -19,7 +19,6 @@ const AddressSearchItem = ({ address }: AddressSearchItemProps) => {
     setLongitude(parseFloat(address.lon));
 
     modal.hide();
-    console.log(address)
   };
 
   return (

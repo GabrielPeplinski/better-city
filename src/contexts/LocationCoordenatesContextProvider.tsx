@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import * as Location from 'expo-location';
+import { Alert } from 'react-native';
 
 interface LocationCoordenatesProps {
   latitude: number;
@@ -35,7 +36,7 @@ export function LocationCoordenatesContextProvider({
           setLongitude(location.coords.longitude);
         }
       } catch (error) {
-        console.error('Erro ao obter a localização:', error);
+        throw Error;
       }
     };
 

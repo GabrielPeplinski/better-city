@@ -40,7 +40,6 @@ const CreateTroubleModal = (props: Props) => {
 
       Alert.alert('Sua reclamação foi cadastrada com sucesso!')
     } catch (error: any) {
-      console.log(error);
       Alert.alert('Não foi possível cadastrar a sua reclamação');
     }
   };
