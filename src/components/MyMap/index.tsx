@@ -68,8 +68,6 @@ const MyMap = () => {
         zoom={15}
         loadingIndicator={() => <ActivityIndicator />}
         onMessage={(message: any) => {
-          //console.log('>>>', message);
-
           if (message.tag === 'onMapClicked') {
             const latitude = message.location.lat;
             const longitude = message.location.lng;

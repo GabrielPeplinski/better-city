@@ -28,7 +28,6 @@ const EditTroubleModal = ({ trouble }: ShowTroubleProps) => {
 
       Alert.alert('Sua reclamação foi atualizada com sucesso!');
     } catch (error: any) {
-      console.log(error);
       Alert.alert('Não foi possível editar a sua reclamação');
     }
   };
